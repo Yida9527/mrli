@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<link href="quote/css/OMS.css" rel="stylesheet">
+<link href="quote/css/demo.css" rel="stylesheet">
+<link href="quote/css/dpl.css" rel="stylesheet">
+<link href="quote/css/bui.css" rel="stylesheet">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+</head>
+
+<body>
+<h2>品牌添加</h2>
+<hr>
+<form id="J_Form" class="form-horizontal" method="post">
+    <div class="row">
+        <div class="span control-row-auto">
+            <div id="grid"></div>
+    	</div>
+        <input type="hidden" name="gridValue"><!--存放grid的数据-->
+    </div>
+    <div class="row" style="margin-top:10px">
+        <div class="form-actions offset3">
+        	<button type="submit" class="button button-primary">保存</button>
+        </div>
+    </div> 
+</form>
+
+<script src="quote/js/jquery-1.8.1.min.js"></script> 
+<script src="quote/js/sea.js"></script> 
+<script src="quote/js/config.js"></script> 
+<script src="quote/js/grid-min.js"></script> 
+<script src="quote/js/common-min.js"></script> 
+<script src="quote/js/menu-min.js"></script> 
+<script src="quote/js/data-min.js"></script> 
+<script src="quote/js/toolbar-min.js"></script> 
+<script src="quote/js/mask-min.js"></script> 
+<script src="quote/js/list-min.js"></script> 
+<script src="quote/js/form-min.js"></script> 
+<script src="quote/js/overlay-min.js"></script>
+<script src="quote/js/editor-min.js"></script> 
+<script src="quote/img/calendar-min.js"></script>
+<script src="quote/js/slider-min.js"></script>
+<!-- script start --> 
+    <script type="text/javascript">
+        function planFormat(value){
+      return value + '转换';
+    }
+      BUI.use(['bui/grid','bui/data','bui/form'],function (Grid,Data,Form) {
+      
+       var columns = [{title : '品牌名称',dataIndex :'a',editor : {xtype : 'text',rules:{required:true}}},
+            {title : '官网网址',dataIndex :'b',editor : {xtype : 'text',rules:{required:true}}},
+            
+          ],
+      //默认的数据
+      data = [{id:'1',a:'益达企业',b:'www.dongliangshi2b.com',},
+        {id:'2',a:'希腊船舶',b:'www.dongliangshisb.com',}],
+      store = new Data.Store({
+        data:data
+      }),
+      editing = new Grid.Plugins.CellEditing(),
+      grid = new Grid.Grid({
+        render : '#grid',
+        columns : columns,
+        width : 700,
+        forceFit : true,
+        store : store,
+        plugins : [Grid.Plugins.CheckSelection,editing],
+        tbar:{
+            items : [{
+              btnCls : 'button button-small',
+              text : '<i class="icon-plus"></i>添加',
+              listeners : {
+                'click' : addFunction
+              }
+            },
+            {
+              btnCls : 'button button-small',
+              text : '<i class="icon-remove"></i>删除',
+              listeners : {
+                'click' : delFunction
+              }
+            }]
+        }
+ 
+      });
+    grid.render();
+ 
+    function addFunction(){
+      var newData = {school :'请输入学校名称'};
+      store.add(newData);
+      editing.edit(newData,'school'); //添加记录后，直接编辑
+    }
+ 
+    function delFunction(){
+      var selections = grid.getSelection();
+      store.remove(selections);
+    }
+ 
+    var form = new Form.HForm({
+      srcNode : '#J_Form'
+    });
+    form.render();
+ 
+    form.on('beforesubmit',function(){
+      if(!editing.isValid()){
+ 
+        return false;
+      }
+      var str = BUI.JSON.stringify(store.getResult());// 提交前将grid的数据存储到隐藏域，一起提交
+      form.getField('gridValue').set('value',str); 
+    });
+ 
+      
+  }); 
+    </script>
+<!-- script end -->
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title> 权限设置</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="../assets/css/dpl-min.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/css/bui-min.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/css/page-min.css" rel="stylesheet" type="text/css" />   <!-- 下面的样式，仅是为了显示代码，而不应该在项目中使用-->
+    <link href="../assets/css/dpl.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+  <div class="demo-content" style="margin:20px;">
+	<div class="row" style="margin-top:40px;">
+              
+              
+          <div class="control-group left span9">
+            <label class="control-label">按日期查询：</label>
+            <div id="range" class="controls bui-form-group"  data-rules="{dateRange:true}">
+              <input name="start" class="calendar"    type="text"><label>&nbsp;-&nbsp;</label><input name="end" class="calendar"    type="text">
+            </div>
+          </div>
+              <label class="control-label left">业务类型：</label>
+              <div class="controls left">
+            	<select name="">
+              		<option value="0">全部业务</option>
+              		<option value="1">成功</option>
+              		<option value="2">失败</option>
+              		<option value="3">作废</option>
+            		</select>
+              </div>
+          </div>
+          <div class="cow">
+		<button class="button button-success" style="margin:20px">查看对购汇单</button> <button class="button button-info">下载EXCEL</button>
+			
+    </div>    
+	
+    <div class="row">
+      <div style=" width:1270px;">
+        <div id="grid">
+          
+        </div>
+      </div>
+    </div>
+    
+ 
+  <script src="http://g.tbcdn.cn/fi/bui/jquery-1.8.1.min.js"></script>
+  <script src="http://g.alicdn.com/bui/seajs/2.3.0/sea.js"></script>
+  <script src="http://g.alicdn.com/bui/bui/1.1.21/config.js"></script>
+ 
+<!-- script start --> 
+    <script type="text/javascript">
+        BUI.use(['bui/grid','bui/data'],function(Grid,Data){
+            var Grid = Grid,
+          Store = Data.Store,
+          columns = [
+		  {title : '序号',dataIndex :'a',width:60},
+		  {id: '123',title : '时间',dataIndex :'b',width:200},
+		  {title : '业务类型',dataIndex : 'c',width:200},
+		  {title : '金额',dataIndex : 'd',width:200},
+		  {title : '备注',dataIndex : 'f',width:400},
+		  ],
+          data = [
+		  {a:'1',b:'2016-01-01 07:04:24 PM',c:'购汇',d:'1000.00',e:'1000.00',},
+		  {a:'2',b:'2016-01-01 08:04:24 PM',c:'购汇',d:'100.00',e:'900.00',},
+		  {a:'3',b:'2016-01-01 09:04:24 PM',c:'购汇',d:'100.00',e:'800.00',},
+		  ];
+ 
+        var store = new Store({
+            data : data,
+            autoLoad:true
+          }),
+          grid = new Grid.Grid({
+          render:'#grid',
+          columns : columns,
+          idField : 'a',
+          store : store
+        });
+ 
+        grid.render();
+      });
+    </script>
+<!-- script end -->
+  </div>
+</body>
+</html>

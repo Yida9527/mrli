@@ -1,0 +1,224 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<link href="quote/css/OMS.css" rel="stylesheet">
+<link href="quote/css/demo.css" rel="stylesheet">
+<link href="quote/css/dpl.css" rel="stylesheet">
+<link href="quote/css/bui.css" rel="stylesheet">
+<style>
+.wenzi{ font-weight:bold}
+</style>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+</head>
+
+<body style="margin-left:30px">
+<!--第一行-->
+<h2>入库单</h2>
+<form class="form-horizontal">
+    <div class="row">
+    	<div class="control-group" style="float:left">
+            <label class="control-label wenzi">入库单名称：</label>
+            <div class="controls">
+                <p>日用商品清单323</p>
+            </div>
+		</div>
+        <div class="control-group span8">
+            <label class="control-label wenzi">编号：</label>
+            <div class="controls">
+                <p>ru-3230125</p>
+            </div>
+        </div>
+        <div class="control-group span8" style="margin-left:-100px">
+            <label class="control-label wenzi">到货仓库：</label>
+            <div class="controls">
+                <p>天津仓库</p>
+            </div>
+        </div>
+	</div>
+    <div class="row">
+    	<div class="control-group" style="float:left">
+            <label class="control-label wenzi">入库操作员：</label>
+            <div class="controls">
+                <p>周栋梁</p>
+            </div>
+		</div>
+        <div class="control-group span8">
+            <label class="control-label wenzi">入库日期：</label>
+            <div class="controls">
+        		<p>2015-03-03</p>
+        	</div>
+        </div>
+	</div>
+    <hr>
+</form>
+<!--第一行结束第二行开始-->
+<!--第二表单第一行开始-->
+<form class="form-horizontal">
+    <div class="row">
+        <div class="control-group">
+        	<label class="control-label wenzi">商品UPC：</label>
+        	<div class="controls">
+        		<input type="text" class="control-text" style="width:160px">
+        	</div>
+        	<label class="control-label wenzi">商品数量：</label>
+        	<div class="controls">
+        		<input type="text" class="control-text" style=" width:50px">
+        	</div>
+        		<button type="submit" class="button button-primary" style="float:left; margin-left:20px">确认录入</button>
+     	</div>
+	</div>
+    <hr>
+</form>
+<!--第四个表单-->
+<form id="J_Form" class="form-horizontal" method="post">
+    <div class="row">
+        <div class="span control-row-auto">
+            <div id="grid"></div>
+    	</div>
+        <input type="hidden" name="gridValue"><!--存放grid的数据-->
+    </div>
+    <div class="row" style="margin-top:10px">
+        <div class="form-actions offset3">
+        	<button type="submit" class="button button-primary">确认入库</button>
+        </div>
+    </div> 
+</form>
+
+
+<!--js--> 
+<script src="quote/js/jquery-1.8.1.min.js"></script> 
+<script src="quote/js/sea.js"></script> 
+<script src="quote/js/config.js"></script> 
+<script src="quote/js/grid-min.js"></script> 
+<script src="quote/js/common-min.js"></script> 
+<script src="quote/js/menu-min.js"></script> 
+<script src="quote/js/data-min.js"></script> 
+<script src="quote/js/toolbar-min.js"></script> 
+<script src="quote/js/mask-min.js"></script> 
+<script src="quote/js/list-min.js"></script> 
+<script src="quote/js/form-min.js"></script> 
+<script src="quote/js/overlay-min.js"></script>
+<script src="quote/js/editor-min.js"></script> 
+<script src="quote/img/calendar-min.js"></script>
+<script src="quote/js/slider-min.js"></script>
+
+
+<script type="text/javascript">
+
+
+	<!--地址三级联动-->
+      BUI.use('bui/form',function(Form){ 
+      // 静态数据源
+      var data = [{"id" : "1","text":"山东","children":[
+        {"id":"11","text":"济南","leaf":false},
+        {"id":"12","text":"淄博","leaf":false,"children":[
+          {"id":"121","text":"淄川区","leaf":true}
+        ]}
+      ]}];
+ 
+      BUI.Form.Group.Select.addType('type2',{
+        data : data
+      });
+ 
+      var form = new Form.Form({
+        srcNode : '#J_Form'
+      }).render();
+	  var form = new Form.Form({
+        srcNode : '#J_Form1'
+      }).render();
+      
+  });  
+   <!--三级联动结束-->
+   <!--下单添加删除js-->
+   function planFormat(value){
+      return value + '转换';
+    }
+      BUI.use(['bui/grid','bui/data','bui/form'],function (Grid,Data,Form) {
+      
+       var columns = [{title : '货号',dataIndex :'a', width:350,editor : {xtype : 'text',rules:{required:true}}},
+            {title : '名称',dataIndex :'b', width:500,editor : {xtype : 'text',rules:{required:true}}},//使用现有的渲染函数，日期格式化
+            {title : '单价',dataIndex :'c', width:150,editor : {xtype : 'text',rules:{required:true}}},
+			{title : '规格',dataIndex :'d', width:150,editor : {xtype : 'text',rules:{required:true}}},
+			{title : '条码',dataIndex :'e', width:350,editor : {xtype : 'text',rules:{required:true}}},
+			{title : '到货数量',dataIndex :'f', width:200,editor : {xtype : 'date',rules:{required:true},},renderer : Grid.Format.dateRenderer},
+            
+          ],
+      //默认的数据
+      data = [{id:'1',a:'032JPA334600003',b:'狮王 White White牙膏 150g',c:'82',d:'EQ1401',e:'4903301186403',f:'152014'},
+        {id:'1',a:'032JPA334600003',b:'狮王 White White牙膏 150g',c:'82',d:'EQ1401',e:'4903301186403',f:'152014'}],
+      store = new Data.Store({
+        data:data
+      }),
+      editing = new Grid.Plugins.CellEditing(),
+      grid = new Grid.Grid({
+        render : '#grid',
+        columns : columns,
+        width : 1000,
+        forceFit : true,
+        store : store,
+        plugins : [Grid.Plugins.CheckSelection,editing],
+        tbar:{
+            items : [{
+              btnCls : 'button button-small',
+              text : '<i class="icon-plus"></i>添加',
+              listeners : {
+                'click' : addFunction
+              }
+            },
+            {
+              btnCls : 'button button-small',
+              text : '<i class="icon-remove"></i>删除',
+              listeners : {
+                'click' : delFunction
+              }
+            }]
+        }
+ 
+      });
+    grid.render();
+ 
+    function addFunction(){
+      var newData = {school :'请输入学校名称'};
+      store.add(newData);
+      editing.edit(newData,'school'); //添加记录后，直接编辑
+    }
+ 
+    function delFunction(){
+      var selections = grid.getSelection();
+      store.remove(selections);
+    }
+ 
+    var form = new Form.HForm({
+      srcNode : '#J_Form'
+    });
+    form.render();
+ 
+    form.on('beforesubmit',function(){
+      if(!editing.isValid()){
+ 
+        return false;
+      }
+      var str = BUI.JSON.stringify(store.getResult());// 提交前将grid的数据存储到隐藏域，一起提交
+      form.getField('gridValue').set('value',str); 
+    });
+ 
+      
+  }); 
+  <!--下单添加删除js结束-->    
+	<!--日期-->
+      BUI.use('bui/calendar',function(Calendar){
+          var datepicker = new Calendar.DatePicker({
+            trigger:'.calendar',
+            autoRender : true
+          });
+        });
+<!--二选一-->
+BUI.use('bui/form',function  (Form) {
+new Form.Form({
+srcNode : '#J_Form'
+}).render();
+});
+</script>
+</body>
+</html>

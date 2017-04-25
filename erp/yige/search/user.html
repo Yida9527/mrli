@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>用户列表</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="../assets/css/dpl-min.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/css/bui-min.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/css/page-min.css" rel="stylesheet" type="text/css" />   <!-- 下面的样式，仅是为了显示代码，而不应该在项目中使用-->
+    <link href="../assets/css/dpl.css" rel="stylesheet" type="text/css" />
+ 
+</head>
+<body>
+  <div class="demo-content" style="margin:20px;">
+  	<div class="row" style="margin-top:40px;">
+              <label class="control-label left">按客户类型查询：</label>
+              <div class="controls left">
+            	<select name="">
+              		<option value="0">全部用户</option>
+            		</select>
+              </div>
+          <div class="control-group left span10">
+            <label class="control-label">按客户加入日期查询：</label>
+            <div id="range" class="controls bui-form-group"  data-rules="{dateRange:true}">
+              <input name="start" class="calendar"    type="text"><label>&nbsp;-&nbsp;</label><input name="end" class="calendar"    type="text">
+            </div>
+          </div>
+              
+              
+        <div class="control-group ">
+          <label class="control-label">联系人手机：</label>
+          <div class="controls">
+            <input name="sid" type="text" class="control-text" data-rules="{required:true}">
+          </div>
+        </div>
+        <div class="control-group" style=" margin-top:20px;">
+          <label class="control-label">按客户地址查询：</label>
+          <div class="controls">
+            <input name="sid" type="text" class="control-text" data-rules="{required:true}">
+          </div>
+        </div>
+          </div>
+          <div class="cow">
+		<button class="button button-success" style="margin:20px">查看选中客户详细资料</button>
+			
+    </div>
+    <div class="row">
+      <div >
+        <div id="grid">
+          
+        </div>
+      </div>
+    </div>
+    
+ 
+  <script src="http://g.tbcdn.cn/fi/bui/jquery-1.8.1.min.js"></script>
+  <script src="http://g.alicdn.com/bui/seajs/2.3.0/sea.js"></script>
+  <script src="http://g.alicdn.com/bui/bui/1.1.21/config.js"></script>
+ 
+<!-- script start --> 
+    <script type="text/javascript">
+        BUI.use(['bui/grid','bui/data'],function(Grid,Data){
+            var Grid = Grid,
+          Store = Data.Store,
+          columns = [
+		  	{title : '商户名称',dataIndex :'a', width:200},
+            {title : '联系人姓名',dataIndex :'b', width:100}, 
+            {title : '联系人电话',dataIndex : 'c', width:150},
+            {title : '联系人地址',dataIndex : 'd', width:300},
+            {title : '商户验证码',dataIndex : 'e', width:100},
+            {title : '商户加入日期',dataIndex : 'f', width:120},
+            {title : '商户保证金余额',dataIndex : 'g', width:120},
+            {title : '用户角色权限',dataIndex : 'h', width:120},
+           ],   
+           //由于设置了数据跟状态的对应关系，此时状态会反映到Html上面
+           //disabled的字段无法被选中
+          data = [
+		  {a:'第一家用户',b:'郝博',c:'13800138000',d:'辽宁省大连市沙河口区数码路6号',e:'568732',f:'2016-02-15',g:'1000.00',h:'一级用户'/*<!--,disabled:true-->*/},
+		  {a:'第二家用户',b:'张三',c:'13800138000',d:'上海市浦东新区52号',e:'568740',f:'2016-03-05',g:'1000.00',h:'二级用户'/*<!--,disabled:true-->*/},
+		  {a:'第三家用户',b:'李四',c:'13800138000',d:'上海市浦东新区2号',e:'568700',f:'2016-03-06',g:'1000.00',h:'三级用户'/*<!--,disabled:true-->*/},
+		  ];
+ 
+        var store = new Store({
+            data : data,
+            autoLoad:true
+          }),
+          grid = new Grid.Grid({
+            render:'#grid',
+            columns : columns,
+            itemStatusFields : { //设置数据跟状态的对应关系
+              selected : 'selected',
+              disabled : 'disabled'
+            },
+            store : store,
+			      plugins : [Grid.Plugins.CheckSelection]	// 插件形式引入多选表格
+			//multiSelect: true  // 控制表格是否可以多选，但是这种方式没有前面的复选框 默认为false
+          });
+ 
+        grid.render();
+      });
+    </script>
+<!-- script end -->
+  </div>
+  </body>
+</html>

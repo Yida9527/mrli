@@ -1,0 +1,21 @@
+Add a brand：添加快递
+Add the Courier：添加品牌
+Add the goods：添加商品
+Create a category：创建类目
+Create the origin：创建产地
+List of suppliers：仓库列表
+OMS：订单列表
+order blank:配货单
+packing list：装箱单
+place an orde：”采购单
+place an order2：下单页
+Place the order page：跨境电商下单页
+schedule：采购进度查询
+supplier：供货商录入
+The financial statements：采购对账入库表
+the merchandise search：商品查询
+top up：用户充值
+user add：创建用户
+warehouse warrant：入库单
+warehouse：供货商列表
+ToOrder：待发货订单

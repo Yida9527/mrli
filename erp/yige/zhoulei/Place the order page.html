@@ -1,0 +1,254 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<link href="quote/css/OMS.css" rel="stylesheet">
+<link href="quote/css/demo.css" rel="stylesheet">
+<link href="quote/css/dpl.css" rel="stylesheet">
+<link href="quote/css/bui.css" rel="stylesheet">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+</head>
+
+<body style="margin-left:30px">
+<!--第二表单第一行开始-->
+<form class="form-horizontal">
+    <div class="row">
+        <div class="control-group">
+        	<label class="control-label">请输入收货人姓名：</label>
+        	<div class="controls">
+        		<input type="text" class="control-text">
+        	</div>
+     	</div>
+        <div class="control-group">
+        	<label class="control-label">请输入收货人电话：</label>
+        	<div class="controls">
+        		<input type="text" class="control-text">
+        	</div>
+     	</div>
+	</div>
+</form>
+<!--第二表单三级联动-->
+<form id="J_Form1"  class="form-horizontal">
+    <div class="row">
+        <div class="control-group">
+        	<!--联动开始-->
+            <label class="control-label">请输入收货人地址：</label>
+            <div class="controls bui-form-group-select" data-type="city">
+                <select class="input-small" value="山东省"><option>省份</option></select>&nbsp;&nbsp;
+                <select class="input-small"><option>城市</option></select>
+                <select class="input-small"><option>区</option></select>
+            </div>
+            <!--联动结束-->
+            <div class="control-group">
+        		<label class="control-label span3">请输入收货人详细地址：</label>
+        		<div class="controls">
+        			<input type="text" class="control-text">
+        		</div>
+     		</div>
+        </div>
+    </div>
+</form>
+<div class="row">
+    <hr>
+</div>
+<!--第二表单结束-->
+<!--第三表单-->
+<form class="form-horizontal">
+    <div class="row">
+        <div class="control-group">
+        	<label class="control-label">请输入下单人姓名：</label>
+        	<div class="controls">
+        		<input type="text" class="control-text">
+        	</div>
+     	</div>
+	</div>
+    <div class="row">
+    	<div class="control-group" style="float:left">
+            <label class="control-label">请选择快递：</label>
+            <div class="controls">
+            	<select>
+                    <option>顺丰快递</option>
+                    <option>请选择</option>
+                    <option>请选择</option>
+                </select>
+            </div>
+		</div>
+        <div class="control-group span8">
+            <label class="control-label">请选择干线参数：</label>
+            <div class="controls">
+                <select>
+                    <option>请选择</option>
+                    <option>请选择</option>
+                    <option>请选择</option>
+                </select>
+            </div>
+        </div>
+	</div>
+    <hr>
+</form>
+<!--第四个表单-->
+<form id="J_Form" class="form-horizontal" method="post">
+    <div class="row">
+        <div class="span control-row-auto">
+            <div id="grid"></div>
+    	</div>
+        <input type="hidden" name="gridValue"><!--存放grid的数据-->
+    </div>
+    <div class="row">
+          <label style="color:#999999;margin:10px;">填写商品价格只对自家店铺商品有效，对于分销其他商户的商品无效</label>
+    </div>
+    <div class="demo-content">
+    	<p>选择值：<span id="log">0</span></p>
+    	<div class="row">
+    	<div id="s1" class="span8">
+    
+    	</div>
+    </div>
+    <div class="row" style="font-size:16px; margin-top:10px">
+    	<hr>
+        <p>总计：￥<span>50</span></p>
+    </div>
+    <div class="row" style="margin-top:10px">
+        <div class="form-actions offset3">
+        	<button type="submit" class="button button-primary">下单</button>
+        	<button type="reset" class="button">重置</button>
+        </div>
+    </div> 
+</form>
+
+
+<!--js--> 
+<script src="quote/js/jquery-1.8.1.min.js"></script> 
+<script src="quote/js/sea.js"></script> 
+<script src="quote/js/config.js"></script> 
+<script src="quote/js/grid-min.js"></script> 
+<script src="quote/js/common-min.js"></script> 
+<script src="quote/js/menu-min.js"></script> 
+<script src="quote/js/data-min.js"></script> 
+<script src="quote/js/toolbar-min.js"></script> 
+<script src="quote/js/mask-min.js"></script> 
+<script src="quote/js/list-min.js"></script> 
+<script src="quote/js/form-min.js"></script> 
+<script src="quote/js/overlay-min.js"></script>
+<script src="quote/js/editor-min.js"></script> 
+<script src="quote/img/calendar-min.js"></script>
+<script src="quote/js/slider-min.js"></script>
+
+
+<script type="text/javascript">
+
+
+	<!--地址三级联动-->
+      BUI.use('bui/form',function(Form){ 
+      // 静态数据源
+      var data = [{"id" : "1","text":"山东","children":[
+        {"id":"11","text":"济南","leaf":false},
+        {"id":"12","text":"淄博","leaf":false,"children":[
+          {"id":"121","text":"淄川区","leaf":true}
+        ]}
+      ]}];
+ 
+      BUI.Form.Group.Select.addType('type2',{
+        data : data
+      });
+ 
+      var form = new Form.Form({
+        srcNode : '#J_Form'
+      }).render();
+	  var form = new Form.Form({
+        srcNode : '#J_Form1'
+      }).render();
+      
+  });  
+   <!--三级联动结束-->
+   <!--下单添加删除js-->
+   function planFormat(value){
+      return value + '转换';
+    }
+      BUI.use(['bui/grid','bui/data','bui/form'],function (Grid,Data,Form) {
+      
+       var columns = [{title : '跨境通ID',dataIndex :'school',editor : {xtype : 'text',rules:{required:true}}},
+            {title : '购买数量',dataIndex :'enter',editor : {xtype : 'date',rules:{required:true}},renderer : Grid.Format.dateRenderer},//使用现有的渲染函数，日期格式化
+            {title : '商品价格',dataIndex :'outter',editor : {xtype : 'date',rules:{required:true},},renderer : Grid.Format.dateRenderer},
+            
+          ],
+      //默认的数据
+      data = [{id:'1',school:'032JPA334600003',enter:'22',outter:'82',},
+        {id:'2',school:'032JPA334600003',enter:'22',outter:'82',}],
+      store = new Data.Store({
+        data:data
+      }),
+      editing = new Grid.Plugins.CellEditing(),
+      grid = new Grid.Grid({
+        render : '#grid',
+        columns : columns,
+        width : 700,
+        forceFit : true,
+        store : store,
+        plugins : [Grid.Plugins.CheckSelection,editing],
+        tbar:{
+            items : [{
+              btnCls : 'button button-small',
+              text : '<i class="icon-plus"></i>添加',
+              listeners : {
+                'click' : addFunction
+              }
+            },
+            {
+              btnCls : 'button button-small',
+              text : '<i class="icon-remove"></i>删除',
+              listeners : {
+                'click' : delFunction
+              }
+            }]
+        }
+ 
+      });
+    grid.render();
+ 
+    function addFunction(){
+      var newData = {school :'请输入学校名称'};
+      store.add(newData);
+      editing.edit(newData,'school'); //添加记录后，直接编辑
+    }
+ 
+    function delFunction(){
+      var selections = grid.getSelection();
+      store.remove(selections);
+    }
+ 
+    var form = new Form.HForm({
+      srcNode : '#J_Form'
+    });
+    form.render();
+ 
+    form.on('beforesubmit',function(){
+      if(!editing.isValid()){
+ 
+        return false;
+      }
+      var str = BUI.JSON.stringify(store.getResult());// 提交前将grid的数据存储到隐藏域，一起提交
+      form.getField('gridValue').set('value',str); 
+    });
+ 
+      
+  }); 
+  <!--下单添加删除js结束-->   
+  BUI.use('bui/slider',function (Slider) {
+    
+      var slider = new Slider.Slider({
+        render : '#s1',
+        min : 0, 
+        step:1,  //滑动最小 100
+        max : 100, //最大值
+        value : 0 //当前值
+      });
+      slider.render();
+      slider.on('change',function(ev){
+        $('#log').text(ev.value);
+      });
+    }); 
+   
+</script>
+</body>
+</html>

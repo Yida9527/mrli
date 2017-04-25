@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<link href="quote/css/demo.css" rel="stylesheet">
+<link href="quote/css/dpl.css" rel="stylesheet">
+<link href="quote/css/bui.css" rel="stylesheet">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+</head>
+
+<body style="margin-left:30px">
+<h2>配货单</h2>
+<form class="form-horizontal">
+	<div class="row">
+        <div class="control-group">
+        	<label class="control-label">订单编号：</label>
+        	<div class="controls">
+				<p>12559797</p>
+        	</div>
+            <label class="control-label" style="margin-left:20px">下单时间：</label>
+        	<div class="controls">
+        		<p>2016-03-26,15:30</p>
+        	</div>
+     	</div>
+	</div>
+</form>
+<div class="demo-content">
+    <div class="row">
+      <div class="span16">
+        <div id="grid">
+          
+        </div>
+      </div>
+    </div>
+</div>
+<div class="span8 offset3 " style="margin-top:15px; margin-left:0px">
+  <button type="submit" class="button button-primary">打印</button>
+</div>
+
+
+
+
+<script src="quote/js/jquery-1.8.1.min.js"></script> 
+<script src="quote/js/sea.js"></script> 
+<script src="quote/js/config.js"></script> 
+<script src="quote/js/grid-min.js"></script> 
+<script src="quote/js/common-min.js"></script> 
+<script src="quote/js/menu-min.js"></script> 
+<script src="quote/js/data-min.js"></script> 
+<script src="quote/js/toolbar-min.js"></script> 
+<script src="quote/js/mask-min.js"></script> 
+<script src="quote/js/list-min.js"></script> 
+<script src="quote/js/form-min.js"></script> 
+<script src="quote/js/overlay-min.js"></script>
+<script src="quote/js/editor-min.js"></script> 
+<script src="quote/img/calendar-min.js"></script>
+<script src="quote/js/slider-min.js"></script>
+ <script type="text/javascript">
+        BUI.use(['bui/grid','bui/data'],function(Grid,Data){
+            var Store = Data.Store,
+          columns = [
+            {title : '商品名称',dataIndex :'a', width:300},
+            {id: '123',title : '商品编号',dataIndex :'b', width:150},
+            {title : '商品upc',dataIndex : 'c',width:150},
+			{title : '数量',dataIndex : 'd',width:80}
+          ],
+          data = [
+		  	{a:'LION狮王 White White牙膏 150g',b:'4903301186403',c:'4903301186403',d:'5'},
+			{a:'kanebo 嘉娜宝 洁面粉 0.4g×32粒 SuiSai',b:'4973167300329',c:'4973167300329',d:'1'},
+			{a:'海道LOSHI 马油护肤滋润保湿霜 220g',b:'4936201053667',c:'4936201053667',d:'2'},];
+ 
+        var store = new Store({
+            data : data
+          }),
+          grid = new Grid.Grid({
+            render:'#grid',
+            width:'100%',//如果表格使用百分比，这个属性一定要设置
+            columns : columns,
+            idField : 'a',
+            store : store,
+			width:700
+          });
+ 
+        grid.render();
+      });
+    </script>
+</body>
+</html>

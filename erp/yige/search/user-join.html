@@ -1,0 +1,251 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title>用户添加</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+       <link href="../assets/css/dpl-min.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/css/bui-min.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/css/page-min.css" rel="stylesheet" type="text/css" />   <!-- 下面的样式，仅是为了显示代码，而不应该在项目中使用-->
+   <link href="../assets/css/dpl.css" rel="stylesheet" type="text/css" />
+ </head>
+ <body>
+  
+  <div class="container">
+    <form id ="J_Form" class="form-horizontal">
+      <!--    -->
+      <h3>基本信息</h3>
+      <div class="row">
+        <div class="control-group span12">
+          <label class="control-label"><s>*</s>商家名称：</label>
+          <div class="controls">
+            <input name="sname" type="text" class="control-text" data-rules="{required:true}">
+          </div>
+        </div>
+        <div class="control-group span12">
+          <label class="control-label"><s>*</s>联系人姓名：</label>
+          <div class="controls">
+            <input name="sid" type="text" class="control-text" data-rules="{required:true}">
+          </div>
+        </div>
+		<div class="control-group span12">
+          <label class="control-label"><s>*</s>联系人手机：</label>
+          <div class="controls">
+            <input name="sid" type="text" class="control-text" data-rules="{required:true}">
+          </div>
+        </div>      </div>
+     
+      
+      <div class="row">
+        <div class="control-group span12">
+          <label class="control-label"><s>*</s>联系人地址：</label>
+          <div class="controls">
+            <input name="address" type="text" class="span8 span-width control-text"  data-rules="{required:true}">
+          </div>
+        </div>
+      </div>
+      
+      <div class="row">
+      	<div class="control-group span12">
+          <label class="control-label"><s>*</s>用户初始密码：</label>
+          <div class="controls">
+            <input name="sid" type="text" class="control-text" data-rules="{required:true}">
+          </div>
+        </div>
+      	<div class="control-group span12">
+          <label class="control-label"><s>*</s>用户ID：</label>
+          <div class="controls">
+            <input name="sid" type="text" class="control-text" data-rules="{required:true}">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+            <label class="control-label" style="color:#999999;">注：用户登陆名为用户手机号，并且此手机号可以接收验证码。用户ID可重复，如果一个用户开通多个渠道用户，请填写相同ID，这样在统计时候，可以把结果记录在一个用户名下。</label>
+      </div>
+      <hr/>
+	        
+  
+      <div class="row">
+              <label class="control-label">用户等级：</label>
+              <div class="controls">
+            	<select name="">
+              		<option value="0">一级</option>
+              		<option value="1">二级</option>
+              		<option value="2">三级</option>
+              		<option value="3">四级</option>
+            		</select>
+              </div>
+            <label class="control-label" style="color:#999999;">注：用户等级在用户权限管理中添加。</label>
+       </div>
+    <hr>   
+      <div class="row">
+        <div class="control-group span12">
+          <label class="control-label">淘宝店铺ID：</label>
+          <div class="controls">
+            <input name="address" type="text" class="span8 span-width control-text">
+          </div>
+        </div>
+
+        <div class="control-group span12">
+          <label class="control-label">app_key：</label>
+          <div class="controls">
+            <input name="address" type="text" class="span8 span-width control-text">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="control-group span12">
+          <label class="control-label">app_Secret：</label>
+          <div class="controls">
+            <input name="address" type="text" class="span8 span-width control-text">
+          </div>
+        </div>
+
+        <div class="control-group span12">
+          <label class="control-label">sessionkey：</label>
+          <div class="controls">
+            <input name="address" type="text" class="span8 span-width control-text">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+            <label class="control-label" style="color:#999999;">注：非淘宝用户请不要填写，以免影响您的订单传递。<a href="#">如何获取店铺的app_key、app_Secret及sessionkey</a></label>
+      </div>
+    <hr>
+          <div class="row">
+        <div class="control-group span12">
+          <label class="control-label">grant_type：</label>
+          <div class="controls">
+            <input name="address" type="text" class="span8 span-width control-text">
+          </div>
+        </div>
+
+        <div class="control-group span12">
+          <label class="control-label">appid：</label>
+          <div class="controls">
+            <input name="address" type="text" class="span8 span-width control-text">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="control-group span12">
+          <label class="control-label">secret：</label>
+          <div class="controls">
+            <input name="address" type="text" class="span8 span-width control-text">
+          </div>
+        </div>
+      </div>
+      
+      <div class="row">
+            <label class="control-label" style="color:#999999;">注：非微小店用户请不要填写，以免影响您的订单传递。<a href="#">如何获得微信接口参数</a></label>
+      </div>
+	<hr>
+    <div class="row">
+        <div class="control-group span24">
+          <label class="control-label">备注：</label>
+          <div class="controls control-row4">
+            <textarea name="" id="" class="span8 span-width"></textarea>
+          </div>
+        </div>
+      </div>
+      <hr/>
+
+      
+      
+      
+      <div class="row">
+        <div class="form-actions offset3">
+          <button type="submit" class="button button-primary">保存</button>
+          <button type="reset" class="button">重置</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <script type="text/javascript" src="../assets/js/jquery-1.8.1.min.js"></script>
+  <script type="text/javascript" src="../assets/js/bui-min.js"></script>
+
+  <script type="text/javascript" src="../assets/js/config-min.js"></script>
+  <script type="text/javascript">
+    BUI.use('common/page');
+  </script>
+  <!-- 仅仅为了显示代码使用，不要在项目中引入使用-->
+  <script type="text/javascript" src="../assets/js/prettify.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      prettyPrint();
+    });
+  </script> 
+<script type="text/javascript">
+  BUI.use(['bui/grid','bui/data','bui/form'],function (Grid,Data,Form) {
+
+    var columns = [{title : '学校名称',dataIndex :'school',editor : {xtype : 'text',rules:{required:true}}},
+            {title : '入学日期',dataIndex :'enter',editor : {xtype : 'date',rules:{required:true}},renderer : Grid.Format.dateRenderer},//使用现有的渲染函数，日期格式化
+            {title : '毕业日期',dataIndex :'outter',editor : {xtype : 'date',rules:{required:true},validator : function(value,obj){
+              if(obj.enter && value && obj.enter > value){
+                return '毕业日期不能晚于入学日期！'
+              }
+            }},renderer : Grid.Format.dateRenderer},
+            {title : '备注',dataIndex :'memo',width:200,editor : {xtype : 'text'}}
+            
+          ],
+      //默认的数据
+      data = [{id:'1',school:'武汉第一初级中学',enter:936144000000,outter:993945600000,memo:'表现优异，多次评为三好学生'},
+        {id:'2',school:'武汉第一高级中学',enter:999561600000,outter:1057017600000,memo:'表现优异，多次评为三好学生'}],
+      store = new Data.Store({
+        data:data
+      }),
+      editing = new Grid.Plugins.CellEditing(),
+      grid = new Grid.Grid({
+        render : '#grid',
+        columns : columns,
+        width : 700,
+        forceFit : true,
+        store : store,
+        plugins : [Grid.Plugins.CheckSelection,editing],
+        tbar:{
+            items : [{
+              btnCls : 'button button-small',
+              text : '<i class="icon-plus"></i>添加',
+              listeners : {
+                'click' : addFunction
+              }
+            },
+            {
+              btnCls : 'button button-small',
+              text : '<i class="icon-remove"></i>删除',
+              listeners : {
+                'click' : delFunction
+              }
+            }]
+        }
+
+      });
+    grid.render();
+
+    function addFunction(){
+      var newData = {school :'请输入学校名称'};
+      store.add(newData);
+      editing.edit(newData,'school'); //添加记录后，直接编辑
+    }
+
+    function delFunction(){
+      var selections = grid.getSelection();
+      store.remove(selections);
+    }
+
+    var form = new Form.HForm({
+      srcNode : '#J_Form'
+    });
+    form.render();
+
+    form.on('beforesubmit',function(){
+      if(!editing.isValid()){
+        return false;
+      }
+    });
+
+
+  });
+</script>
+
+<body>
+</html> 

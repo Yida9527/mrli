@@ -1,0 +1,538 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title> 可编辑表格</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+       <link href="../assets/css/dpl-min.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/css/bui-min.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/css/page-min.css" rel="stylesheet" type="text/css" />   <!-- 下面的样式，仅是为了显示代码，而不应该在项目中使用-->
+   <link href="../assets/css/dpl.css" rel="stylesheet" type="text/css" />
+
+ </head>
+ <body>
+  
+  <div class="container">
+  
+  	<div class="row">
+          <div class="control-group ">
+            <label class="control-label left">请输入欲查询内容：</label>
+            <input type="text" class="control-text left" name="id">
+     		<button type="button" id="btnSearch" class="button button-primary left" style=" margin-left:10px;">搜索</button>
+            <label class="control-label" style="color:#999999;">可以查询内容为跨境通ID、商品条码、商品名称</label>
+     		<button type="button" id="btnSearch" class="button button-primary left">马上更新商品库存</button>
+            <label class="control-label" style="color:#999999;">上次更新时间为2016年2月12日 20:55。商品库存每隔5分钟自动更新一次</label>
+          </div>      
+     </div>
+  <!-- row内容为搜索部分功能-->
+  <hr>
+
+    <div id="grid"></div>
+    <p>
+      <button id="btnSave" class="button button-primary" style="margin-top:20px;">提交修改</button>
+    </p>
+    <h2>提交结果</h2>
+    <div class="row">
+      <div id="log" class="well span23">
+
+      </div>
+    </div>
+    <hr>
+    
+
+    <button id="btn" class="button button-small">高级功能</button>
+    <form id="J_Form" class="form-horizontal" data-depends="{'#btn:click':['toggle']}">
+	<div class="oz">	
+        <div class="control-group span26" style="margin-top:12px;">
+              <label class="control-label"><s>*</s>供应商编码：</label>
+              <div class="controls">
+                <input name="id" type="text" class="input-normal control-text">
+              </div>
+              <label class="control-label"><s>*</s>销售类型是：</label>
+              <div class="controls">
+            	<select name="select">
+              		<option value="0">对外销售</option>
+              		<option value="1">不对外销售</option>
+            		</select>
+              </div>
+              <label class="control-label"><s>*</s>产地：</label>
+              <div class="controls">
+            	<select name="">
+              		<option value="0">日本</option>
+              		<option value="1">澳大利亚</option>
+              		<option value="2">欧洲</option>
+              		<option value="3">北美洲</option>
+              		<option value="4">南美洲</option>
+              		<option value="5">新西兰</option>
+            		</select>
+              </div>
+              <label class="control-label"><s>*</s>品牌：</label>
+              <div class="controls">
+            	<select name="">
+              		<option value="0">花王</option>
+              		<option value="1">尤妮佳</option>
+              		<option value="2">大王</option>
+              		<option value="3">贝亲</option>
+              		<option value="4">相印</option>
+              		<option value="5">kidSmama</option>
+            		</select>
+              </div><br>
+
+     		<button type="button" id="btnSearch" class="button button-primary">高级搜索</button>
+     		<button type="button" id="btnSearch" class="button button-primary">导出EXCEL</button>
+		</div>
+        
+   	</div>
+    <hr style="margin-top:15px;">
+  		<div class="span24" id="canvas"></div><!--商品类型比例-->
+  		<div class="span24" id="canvas-number"></div><!--商品数量比例-->
+	</form>  
+  </div>
+  <script type="text/javascript" src="../assets/js/jquery-1.8.1.min.js"></script>
+  <script type="text/javascript" src="../assets/js/bui-min.js"></script>
+  <script type="text/javascript" src="../assets/js/config-min.js"></script>
+
+<script type="text/javascript">
+  BUI.use(['bui/grid','bui/data'],function (Grid,Data) {
+
+    var columns = [
+			{title : '跨境通ID',dataIndex :'kjtid',width:80,editor : {xtype : 'text',rules:{required:true}}},//跨境通id
+			{title : '商品条码',dataIndex :'upc',width:80,editor : {xtype : 'text',rules:{required:true}}},//商品条码
+            {title : '商品名称',dataIndex :'name',width:200,editor : {xtype : 'text',rules:{required:true}}},//商品名称
+            {title : '商品品牌',dataIndex :'brand',width:40,editor : {xtype : 'text',rules:{required:true}}},//商品品牌
+            {title : '商品类型',dataIndex :'type',width:40,editor : {xtype : 'text',rules:{required:true}}},//商品类型
+            {title : '产地',dataIndex :'country',width:20,editor : {xtype : 'text',rules:{required:true}}},//商品名称
+            {title : '商品价格',dataIndex :'price',width:30,editor : {xtype : 'text',rules:{required:true},allowDecimals:{allowDecimals:true}}},//商品价格，精确到小数点后两位
+            {title : '商品毛重',dataIndex :'weight',width:30,editor : {xtype : 'text',rules:{required:true},allowDecimals:{allowDecimals:true}}},//商品毛重
+            {title : '商品税率',dataIndex :'tax',width:30,editor : {xtype : 'text',rules:{required:true},allowDecimals:{allowDecimals:true}}},//商品毛重
+            {title : '商品库存',dataIndex :'stock',width:30,editor : {xtype : 'text',rules:{required:true}}},//商品价格，精确到小数点后两位
+            {title : '备注',dataIndex :'memo',width:200,editor : {xtype : 'text'}}
+            
+          ],
+      //默认的数据
+      data = [
+	  {
+	  id:'1',
+	  kjtid:'032JPA334600003',
+	  upc:'4902508105002',
+	  name:'【阿布才】贝亲湿巾 滋润湿巾 婴儿湿巾 宝宝湿巾 湿纸巾 防磨擦乳液湿巾 66片 3包 补充装',
+	  brand:'贝亲',
+	  type:'母婴用品',
+	  country:'日本',
+	  price:'20.79',
+	  weight:'0.76',
+	  tax:'0.1',
+	  stock:'27',
+	  memo:''},
+	  
+	  {
+	  id:'2',
+	  kjtid:'032JPA334570005',
+	  upc:'4903111180868',
+	  name:'【阿布才】尤妮佳湿巾 婴儿湿巾 新生儿湿巾 宝宝湿巾 湿纸巾 日本进口湿巾 替换装 60片*8',
+	  brand:'尤妮佳',
+	  type:'母婴用品',
+	  country:'日本',
+	  price:'54.72',
+	  weight:'2.298',
+	  tax:'0.1',
+	  stock:'6',
+	  memo:''},
+	  
+	  {
+	  id:'3',
+	  kjtid:'032JPA59b240005',
+	  upc:'4987072008683',
+	  name:'【阿布才】日本进口 小林退热贴 儿童用 6片入',
+	  brand:'小林制药',
+	  type:'母婴用品',
+	  country:'日本',
+	  price:'18.53',
+	  weight:'0.108',
+	  tax:'0.1',
+	  stock:'12',
+	  memo:''},
+	  
+	  {
+	  id:'4',
+	  kjtid:'032JPB217690010',
+	  upc:'4901872441679',
+	  name:'【阿布才】日本进口 资生堂 TSUBAKI 洗发水加护发素加洗发按摩梳套装 红色',
+	  brand:'资生堂',
+	  type:'母婴用品',
+	  country:'日本',
+	  price:'68',
+	  weight:'1.21',
+	  tax:'0.5',
+	  stock:'82',
+	  memo:''},
+	  
+	  {
+	  id:'5',
+	  kjtid:'032JPB414560001',
+	  upc:'4901301262851',
+	  name:'【阿布才】Laurier花王 卫生巾F系列 花王卫生巾 花王乐而雅 F系列卫生巾 日用 量多丝薄无护翼22.5cm26片',
+	  brand:'花王',
+	  type:'母婴用品',
+	  country:'日本',
+	  price:'19.16',
+	  weight:'0.17',
+	  tax:'0.1',
+	  stock:'72',
+	  memo:''},
+	  
+	  {
+	  id:'6',
+	  kjtid:'032JPB674570001',
+	  upc:'4903111478064',
+	  name:'【阿布才】日本进口 尤妮佳1/2超吸收省水化妆棉卸妆 40枚',
+	  brand:'尤妮佳',
+	  type:'母婴用品',
+	  country:'日本',
+	  price:'10.75',
+	  weight:'0.15',
+	  tax:'0.1',
+	  stock:'0',
+	  memo:''},	  
+	  
+	  {
+	  id:'1',
+	  kjtid:'032JPA334600003',
+	  upc:'4902508105002',
+	  name:'【阿布才】贝亲湿巾 滋润湿巾 婴儿湿巾 宝宝湿巾 湿纸巾 防磨擦乳液湿巾 66片 3包 补充装',
+	  brand:'贝亲',
+	  type:'母婴用品',
+	  country:'日本',
+	  price:'20.79',
+	  weight:'0.76',
+	  tax:'0.1',
+	  stock:'27',
+	  memo:''},
+	  
+	  {
+	  id:'2',
+	  kjtid:'032JPA334570005',
+	  upc:'4903111180868',
+	  name:'【阿布才】尤妮佳湿巾 婴儿湿巾 新生儿湿巾 宝宝湿巾 湿纸巾 日本进口湿巾 替换装 60片*8',
+	  brand:'尤妮佳',
+	  type:'母婴用品',
+	  country:'日本',
+	  price:'54.72',
+	  weight:'2.298',
+	  tax:'0.1',
+	  stock:'6',
+	  memo:''},
+	  
+	  {
+	  id:'3',
+	  kjtid:'032JPA59b240005',
+	  upc:'4987072008683',
+	  name:'【阿布才】日本进口 小林退热贴 儿童用 6片入',
+	  brand:'小林制药',
+	  type:'母婴用品',
+	  country:'日本',
+	  price:'18.53',
+	  weight:'0.108',
+	  tax:'0.1',
+	  stock:'12',
+	  memo:''},
+	  
+	  {
+	  id:'4',
+	  kjtid:'032JPB217690010',
+	  upc:'4901872441679',
+	  name:'【阿布才】日本进口 资生堂 TSUBAKI 洗发水加护发素加洗发按摩梳套装 红色',
+	  brand:'资生堂',
+	  type:'母婴用品',
+	  country:'日本',
+	  price:'68',
+	  weight:'1.21',
+	  tax:'0.5',
+	  stock:'82',
+	  memo:''},
+	  
+	  {
+	  id:'5',
+	  kjtid:'032JPB414560001',
+	  upc:'4901301262851',
+	  name:'【阿布才】Laurier花王 卫生巾F系列 花王卫生巾 花王乐而雅 F系列卫生巾 日用 量多丝薄无护翼22.5cm26片',
+	  brand:'花王',
+	  type:'母婴用品',
+	  country:'日本',
+	  price:'19.16',
+	  weight:'0.17',
+	  tax:'0.1',
+	  stock:'72',
+	  memo:''},
+	  
+	  {
+	  id:'6',
+	  kjtid:'032JPB674570001',
+	  upc:'4903111478064',
+	  name:'【阿布才】日本进口 尤妮佳1/2超吸收省水化妆棉卸妆 40枚',
+	  brand:'尤妮佳',
+	  type:'母婴用品',
+	  country:'日本',
+	  price:'10.75',
+	  weight:'0.15',
+	  tax:'0.1',
+	  stock:'0',
+	  memo:''},	  
+	  {
+	  id:'1',
+	  kjtid:'032JPA334600003',
+	  upc:'4902508105002',
+	  name:'【阿布才】贝亲湿巾 滋润湿巾 婴儿湿巾 宝宝湿巾 湿纸巾 防磨擦乳液湿巾 66片 3包 补充装',
+	  brand:'贝亲',
+	  type:'母婴用品',
+	  country:'日本',
+	  price:'20.79',
+	  weight:'0.76',
+	  tax:'0.1',
+	  stock:'27',
+	  memo:''},
+	  
+	  {
+	  id:'2',
+	  kjtid:'032JPA334570005',
+	  upc:'4903111180868',
+	  name:'【阿布才】尤妮佳湿巾 婴儿湿巾 新生儿湿巾 宝宝湿巾 湿纸巾 日本进口湿巾 替换装 60片*8',
+	  brand:'尤妮佳',
+	  type:'母婴用品',
+	  country:'日本',
+	  price:'54.72',
+	  weight:'2.298',
+	  tax:'0.1',
+	  stock:'6',
+	  memo:''},
+	  
+	  {
+	  id:'3',
+	  kjtid:'032JPA59b240005',
+	  upc:'4987072008683',
+	  name:'【阿布才】日本进口 小林退热贴 儿童用 6片入',
+	  brand:'小林制药',
+	  type:'母婴用品',
+	  country:'日本',
+	  price:'18.53',
+	  weight:'0.108',
+	  tax:'0.1',
+	  stock:'12',
+	  memo:''},
+	  
+	  {
+	  id:'4',
+	  kjtid:'032JPB217690010',
+	  upc:'4901872441679',
+	  name:'【阿布才】日本进口 资生堂 TSUBAKI 洗发水加护发素加洗发按摩梳套装 红色',
+	  brand:'资生堂',
+	  type:'母婴用品',
+	  country:'日本',
+	  price:'68',
+	  weight:'1.21',
+	  tax:'0.5',
+	  stock:'82',
+	  memo:''},
+	  
+	  {
+	  id:'5',
+	  kjtid:'032JPB414560001',
+	  upc:'4901301262851',
+	  name:'【阿布才】Laurier花王 卫生巾F系列 花王卫生巾 花王乐而雅 F系列卫生巾 日用 量多丝薄无护翼22.5cm26片',
+	  brand:'花王',
+	  type:'母婴用品',
+	  country:'日本',
+	  price:'19.16',
+	  weight:'0.17',
+	  tax:'0.1',
+	  stock:'72',
+	  memo:''},
+	  
+	  {
+	  id:'6',
+	  kjtid:'032JPB674570001',
+	  upc:'4903111478064',
+	  name:'【阿布才】日本进口 尤妮佳1/2超吸收省水化妆棉卸妆 40枚',
+	  brand:'尤妮佳',
+	  type:'母婴用品',
+	  country:'日本',
+	  price:'10.75',
+	  weight:'0.15',
+	  tax:'0.1',
+	  stock:'0',
+	  memo:''},	  
+   ],
+      store = new Data.Store({
+        data:data
+      }),
+      editing = new Grid.Plugins.CellEditing(),
+      grid = new Grid.Grid({
+        render : '#grid',
+        columns : columns,
+    
+        forceFit : true,
+        store : store,
+        plugins : [Grid.Plugins.CheckSelection,editing],
+        tbar:{
+            items : [{
+              btnCls : 'button button-small',
+              text : '添加商品',
+              listeners : {
+                'click' : addFunction
+              }
+            },
+            {
+              btnCls : 'button button-small',
+              text : '删除',
+              listeners : {
+                'click' : delFunction
+              }
+            }]
+        }
+
+      });
+    grid.render();
+
+    function addFunction(){
+      var newData = {school :'请输入商品id'};
+      store.add(newData);
+      editing.edit(newData,'kjtid'); //添加记录后，直接编辑
+    }
+
+    function delFunction(){
+      var selections = grid.getSelection();
+      store.remove(selections);
+    }
+    var logEl = $('#log');
+    $('#btnSave').on('click',function(){
+      if(editing.isValid()){
+        var records = store.getResult();
+        logEl.text(BUI.JSON.stringify(records));
+      }
+    });
+  });
+</script>
+  <!--商品数据列表-->
+  <script type="text/javascript">
+    BUI.use('common/page');
+
+    BUI.use('bui/chart',function (Chart) {
+      
+        var chart = new Chart.Chart({
+          render : '#canvas',
+          width : 600,
+          height : 500,
+          title : {
+            text : '各个类型商品所占比例'
+          },
+          legend : null ,//不显示图例
+          seriesOptions : { //设置多个序列共同的属性
+            pieCfg : {
+              allowPointSelect : true,
+              labels : {
+                distance : 40,
+                label : {
+                  //文本信息可以在此配置
+                },
+                renderer : function(value,item){ //格式化文本
+                  return value + ' ' + (item.point.percent * 100).toFixed(2)  + '%'; 
+                }
+              }
+            }
+          },
+          tooltip : {
+            pointRenderer : function(point){
+              return (point.percent * 100).toFixed(2)+ '%';
+            }
+          },
+          series : [{
+              type: 'pie',
+              name: 'Browser share',
+              data: [
+                ['母婴用品',   45.0],
+                ['美妆护肤',       26.8],
+                {
+                    name: '生活日用',
+                    y: 12.8,
+                    sliced: true,
+                    selected: true
+                },
+                ['营养食品',    8.5],
+                ['小家电',     6.2],
+                ['大家电',   0.7]
+              ]
+          }]
+        });
+ 
+        chart.render();
+    });
+
+  </script>
+  <!--各个类型商品所占比例-->
+    <script type="text/javascript">
+    BUI.use('common/page');
+
+    BUI.use('bui/chart',function (Chart) {
+      
+        var chart = new Chart.Chart({
+          render : '#canvas-number',
+          width : 600,
+          height : 500,
+          title : {
+            text : '商品数量所占比例'
+          },
+          legend : null ,//不显示图例
+          seriesOptions : { //设置多个序列共同的属性
+            pieCfg : {
+              allowPointSelect : true,
+              labels : {
+                distance : 40,
+                label : {
+                  //文本信息可以在此配置
+                },
+                renderer : function(value,item){ //格式化文本
+                  return value + ' ' + (item.point.percent * 100).toFixed(2)  + '%'; 
+                }
+              }
+            }
+          },
+          tooltip : {
+            pointRenderer : function(point){
+              return (point.percent * 100).toFixed(2)+ '%';
+            }
+          },
+          series : [{
+              type: 'pie',
+              name: 'Browser share',
+              data: [
+                ['库存为0：',   45.0],
+                ['库存小于10：',       26.8],
+                {
+                    name: '库存在11~30：',
+                    y: 12.8,
+                    sliced: true,
+                    selected: true
+                },
+                ['库存在31~100：',    8.5],
+                ['库存在101~200：',     6.2],
+                ['库存大于200：',   0.7]
+              ]
+          }]
+        });
+ 
+        chart.render();
+    });
+
+  </script>
+  <!--各个商品库存所占比例-->
+  <script type="text/javascript">
+  BUI.use('bui/form',function (Form) {
+    new Form.HForm({
+      srcNode : '#J_Form'
+    }).render();
+  });
+</script>
+  <!-- 仅仅为了显示代码使用，不要在项目中引入使用-->
+
+
+<body>
+</html> 

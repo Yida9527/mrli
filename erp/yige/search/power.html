@@ -1,0 +1,163 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title> 权限设置</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="../assets/css/dpl-min.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/css/bui-min.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/css/page-min.css" rel="stylesheet" type="text/css" />   <!-- 下面的样式，仅是为了显示代码，而不应该在项目中使用-->
+    <link href="../assets/css/dpl.css" rel="stylesheet" type="text/css" />
+ </head>
+
+<body>
+<div class="container" style="margin:20px;">
+	<div class="row">
+    <h2>商品管理</h2>
+		<div class="control-group">
+			<label class="control-label checkbox">
+    			<input type="checkbox"> 查看所有商品
+    		</label>
+			<label class="control-label checkbox">
+    			<input type="checkbox"> 查看分销商品
+    		</label>
+			<label class="control-label checkbox">
+    			<input type="checkbox"> 使用简单搜索
+    		</label>
+			<label class="control-label checkbox">
+    			<input type="checkbox"> 更新库存
+    		</label>
+			<label class="control-label checkbox">
+    			<input type="checkbox"> 更新运单号
+    		</label>
+			<label class="control-label checkbox">
+    			<input type="checkbox"> 导出EXCEL文件
+    		</label>
+			<label class="control-label checkbox red">
+    			<input type="checkbox"> 增加商品、修改属性、删除商品
+    		</label>
+			<label class="control-label checkbox">
+    			<input type="checkbox"> 通过CSV文件添加商品
+    		</label>
+			<label class="control-label checkbox">
+    			<input type="checkbox"> 使用高级功能
+    		</label>
+            <label class="control-label checkbox">
+    			<input type="checkbox"> 商品品牌、分类、产地管理
+    		</label>
+		</div>
+	</div>
+    <hr>
+    <div class="row">
+    <h2>用户管理</h2>
+		<div class="control-group">
+			<label class="control-label checkbox">
+    			<input type="checkbox"> 查看当前用户资料
+    		</label>
+			<label class="control-label checkbox">
+    			<input type="checkbox"> 查看所有用户资料
+    		</label>
+			<label class="control-label checkbox">
+    			<input type="checkbox"> 修改当前用户资料
+    		</label>
+			<label class="control-label checkbox">
+    			<input type="checkbox"> 修改所有用户资料
+    		</label>
+			<label class="control-label checkbox red">
+    			<input type="checkbox"> 修改用户角色权限
+    		</label>
+			<label class="control-label checkbox red">
+    			<input type="checkbox"> 增加新用户
+    		</label>
+			<label class="control-label checkbox">
+    			<input type="checkbox"> 查看当前用户对账单
+    		</label>
+			<label class="control-label checkbox">
+    			<input type="checkbox"> 查看所有用户对账单
+    		</label>
+			<label class="control-label checkbox red">
+    			<input type="checkbox"> 修改用户保证金
+    		</label>
+            <label class="control-label checkbox">
+    			<input type="checkbox"> 修改当前用户淘宝API
+    		</label>
+            <label class="control-label checkbox">
+    			<input type="checkbox"> 修改当前用户微小店API
+    		</label>
+            <label class="control-label checkbox">
+    			<input type="checkbox"> 支付宝在线充值
+    		</label>
+		</div>
+	</div>
+    <hr>
+    <div class="row">
+    <h2>订单管理</h2>
+		<div class="control-group">
+			<label class="control-label checkbox">
+    			<input type="checkbox"> 查看当前用户订单
+    		</label>
+			<label class="control-label checkbox">
+    			<input type="checkbox"> 查看所有用户订单
+    		</label>
+            <label class="control-label checkbox">
+    			<input type="checkbox"> 查看订单详细信息
+    		</label>
+			<label class="control-label checkbox">
+    			<input type="checkbox"> 使用搜索功能
+    		</label>
+			<label class="control-label checkbox red">
+    			<input type="checkbox"> 未发货订单作废
+    		</label>
+			<label class="control-label checkbox">
+    			<input type="checkbox"> 使用订单高级统计功能
+    		</label>
+			<label class="control-label checkbox">
+    			<input type="checkbox"> 使用下单页面
+    		</label>
+            <label class="control-label checkbox red">
+    			<input type="checkbox"> 使用批量下单功能
+    		</label>
+			<label class="control-label checkbox red">
+    			<input type="checkbox"> 使用CSV上传订单
+    		</label>
+		</div>
+	</div>
+    <hr>
+    <div class="row">
+    <h2>后台管理员管理</h2>
+		<div class="control-group">
+			<label class="control-label checkbox">
+    			<input type="checkbox"> 设置软件权限
+    		</label>
+			<label class="control-label checkbox">
+    			<input type="checkbox"> 设置跨境通APP_id
+    		</label>
+            <label class="control-label checkbox">
+    			<input type="checkbox"> 查看跨境通APP_id
+    		</label>
+			<label class="control-label checkbox">
+    			<input type="checkbox"> 设置接收短信电话
+    		</label>
+			<label class="control-label checkbox">
+    			<input type="checkbox"> 修改登陆密码
+    		</label>
+			<label class="control-label checkbox">
+    			<input type="checkbox"> 添加管理用户
+    		</label>           
+		</div>
+	</div>
+
+    <hr>
+    <div class="row">
+            <label class="control-label red">注：标为红色字体的权限，请慎重选择。请确保使用此权限用户安全性。</label>
+    </div>
+	<div class="control-group">
+          <label class="control-label">角色名称：</label>
+          <div class="controls">
+            <input name="sid" type="text" class="control-text" data-rules="{required:true}">
+          </div>
+    </div>
+    <div class="row" style=" margin:50px;">
+		<p><button class="button button-primary">创建角色</button></p>    </div>
+   </div>
+</body>
+</html>

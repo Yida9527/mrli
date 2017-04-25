@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title> 表格跟弹出框联动</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+       <link href="../assets/css/dpl-min.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/css/bui-min.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/css/page-min.css" rel="stylesheet" type="text/css" />   <!-- 下面的样式，仅是为了显示代码，而不应该在项目中使用-->
+   <link href="../assets/css/dpl.css" rel="stylesheet" type="text/css" />
+ </head>
+ <body>
+  
+ <div class="demo-content" style="margin:20px;">
+ 	<div class="row control-group">
+            <label class="control-label" style="color:#999999;line-height:50px;" >上传文件类型只支持CSV格式。并且数据不要多于500行，否者会出错。<br></label>
+            <label class="control-label" style="color:#FF0000;line-height:50px;" >注意，如果您使用Office，有可能产品ID、跨境通ID被改成科学计数法，请务必调整回来。<br></label>
+            <label class="control-label" style=" line-height:50px;" ><a href="#">点击下载CSV文件数据模板</a></label>
+    </div>
+    <div class="row">
+    <div class="span8">
+      <div id="J_Uploader">
+      </div>
+    </div>
+  </div>
+  <hr>
+	<div class="row">
+        <div class="form-actions offset3">
+          <button type="submit" class="button button-primary">开始上传</button>
+          <button type="reset" class="button">重置</button>
+        </div>
+      </div> 
+  <script type="text/javascript" src="../assets/js/jquery-1.8.1.min.js"></script>
+  <script type="text/javascript" src="../assets/js/sea.js"></script>
+  <script src="http://g.alicdn.com/bui/bui/1.1.21/config.js"></script>
+ 
+<!-- script start --> 
+    <script type="text/javascript">
+        BUI.use('bui/uploader',function (Uploader) {
+          
+      /**
+       * 返回数据的格式
+       *
+       *  默认是 {url : 'url'},否则认为上传失败
+       *  可以通过isSuccess 更改判定成功失败的结构
+       */
+      var uploader = new Uploader.Uploader({
+	  
+	  
+        render: '#J_Uploader',
+        url: '../../../test/upload/upload.php',
+        //可以直接在这里直接设置成功的回调
+        success: function(result){
+        },
+        //isSuccess : function(result){},
+        //失败的回调
+        error: function(result){
+        }
+      }).render();
+ 
+      //上传成功时会触发
+      uploader.on('success', function(ev){
+        var result = ev.result;
+      })
+ 
+      //上传成功时会触发
+      uploader.on('error', function(ev){
+        var result = ev.result;
+      });
+    });
+    </script>
+<!-- script end --></div>
+<body>
+</html> 

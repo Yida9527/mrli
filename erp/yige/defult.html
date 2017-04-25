@@ -1,0 +1,260 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title>意格跨境订单管理系统</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+   <link href="assets/css/dpl-min.css" rel="stylesheet" type="text/css" />
+   <link href="assets/css/bui-min.css" rel="stylesheet" type="text/css" />
+   <link href="assets/css/main-min.css" rel="stylesheet" type="text/css" />
+   <link href="assets/css/dpl-min.css" rel="stylesheet" type="text/css" />
+ </head>
+ <body>
+
+  <div class="header">
+    
+      <div class="dl-title">
+          <span class="lp-title-port">意格</span><span class="dl-title-text">跨境电商管理系统</span>
+        </a>
+      </div>
+
+    <div class="dl-log">欢迎您，<span class="dl-log-user">admin</span><a href="###" title="退出系统" class="dl-log-quit">[退出]</a><a href="#" title="帮助文档" class="dl-log-quit">帮助文档</a>
+    </div>
+  </div>
+   <div class="content">
+    <div class="dl-main-nav">
+      <div class="dl-inform"><div class="dl-inform-title">贴心小秘书<s class="dl-inform-icon dl-up"></s></div></div>
+      <ul id="J_Nav"  class="nav-list ks-clear">
+        <li class="nav-item dl-selected"><div class="nav-item-inner nav-home">首页</div></li>
+        <li class="nav-item"><div class="nav-item-inner nav-home">仓储管理</div></li>
+        <li class="nav-item"><div class="nav-item-inner nav-home">采购入库管理</div></li>
+        <li class="nav-item"><div class="nav-item-inner nav-order">商品管理页</div></li>
+        <li class="nav-item"><div class="nav-item-inner nav-inventory">用户管理</div></li>
+        <li class="nav-item"><div class="nav-item-inner nav-supplier">订单管理页</div></li>
+        <li class="nav-item"><div class="nav-item-inner nav-supplier">发货管理</div></li>
+        <li class="nav-item"><div class="nav-item-inner nav-supplier">报表</div></li>
+        <li class="nav-item"><div class="nav-item-inner nav-marketing">设置</div></li>
+      </ul>
+    </div>
+    <ul id="J_NavContent" class="dl-tab-conten">
+
+    </ul>
+   </div>
+  <script type="text/javascript" src="assets/js/jquery-1.8.1.min.js"></script>
+  <script type="text/javascript" src="./assets/js/bui.js"></script>
+  <script type="text/javascript" src="./assets/js/config.js"></script>
+
+  <script>
+    BUI.use('common/main',function(){
+      var config = [{
+          id:'menu', 
+            homePage : 'gh-list',
+          menu:[{
+              text:'首页内容',
+              items:[
+              ]
+            },{
+              text:'订单购汇',
+              items:[
+                  {id:'gouhui',text:'订单购汇表上传',href:'form/dialog-grid-gh.html'},
+                  {id:'gh-list',text:'查看历史购汇记录',href:'form/gh-list.html'},
+              ]
+            },]
+          },{
+          id:'menu5', 
+            homePage : 'gh-list',
+          menu:[{
+              text:'库存管理',
+              items:[
+                  {id:'gouhui',text:'货品库存查询',href:'zhoulei/stockQuery.html'},
+                  {id:'gh-list',text:'仓库库存列表',href:'zhoulei/stockList.html'},
+                  {id:'gouhui',text:'总库存列表',href:'zhoulei/stockAll.html'},
+                  {id:'gh-list',text:'出入库明细',href:'form/gh-list.html'},
+              ]
+            },{
+              text:'盘点管理',
+              items:[
+                  {id:'gouhui',text:'盘点',href:'form/dialog-grid-gh.html'},
+                  {id:'gh-list',text:'盘点表确认',href:'form/gh-list.html'},
+                  {id:'gouhui',text:'导入中盘点',href:'form/dialog-grid-gh.html'},
+              ]
+            },]
+          },
+		  {
+          id:'purchase', 
+            homePage : 'schedule',
+          menu:[{
+              text:'采购管理',
+              items:[
+                  {id:'gouhui',text:'创建采购单',href:'xy/place an order.html'},
+                  {id:'gh-list',text:'创建装箱单',href:'zhoulei/packingList.html'},
+              ]
+            },{
+              text:'商品入库',
+              items:[
+                  {id:'gouhui',text:'商品入库',href:'zhoulei/warehouseWarrant.html'},
+                  {id:'gh-list',text:'采购入库确认',href:'zhoulei/theFinancialStatements.html'},
+              ]
+            },
+			{
+              text:'采购入库单列表',
+              items:[
+                  {id:'schedule',text:'采购入库单列表',href:'zhoulei/schedule.html'},
+
+              ]
+            }
+			]
+          },
+		  
+		  {
+            id:'form',
+            homePage : 'grid',
+            menu:[
+			{
+                text:'商品管理',
+                items:[
+                  {id:'grid',text:'商品列表',href:'xy/the merchandise search.html'},
+                  {id:'form-grid',text:'商品添加',href:'xy/Add the goods.html'},
+                  {id:'dialog-grid',text:'商品批量上传',href:'form/dialog-grid.html'},
+                ]
+              },
+			
+			
+			{
+                text:'栏目管理',
+                items:[
+                  {id:'form-dialog-grid',text:'品牌管理',href:'xy/Add a brand.html'},
+                  {id:'fail',text:'分类管理',href:'xy/Create a category.html'},
+                  {id:'country',text:'产地管理',href:'xy/Create the origin.html'},
+                ]
+              },
+			  ]
+          },{
+            id:'search',
+            homePage : 'user',
+            menu:[{
+                text:'用户管理',
+                items:[
+                  {id:'user',text:'用户列表',href:'search/user.html'},
+                  {id:'user-join',text:'用户添加',href:'search/user-join.html'},
+                ]
+              },{
+                text : '权限设置',
+                items : [
+                  {id : 'power',text : '设置权限角色',href : 'search/power.html'},
+                  {id : 'power-list',text : '角色列表',href : 'search/power-list.html'}
+                ]
+              },{
+                text : '保证金与对账单',
+                items : [
+                  {id : 'bill',text : '对账单查看',href : 'search/bill.html'},
+                  {id : 'bill',text : '保证金管理',href : 'search/money.html'},
+                ]
+              }
+			  
+			  ]
+          },{
+            id:'detail',
+            homePage : 'example',
+            menu:[{
+                text:'一般贸易订单',
+                items:[
+                  {id:'example',text:'订单管理页',href:'zhoulei/OMS.html'},
+                  {id:'introduce',text:'下单页面',href:'zhoulei/placeAnOrder2.html'},
+                  {id:'introduce-all',text:'团购订单批量导入',href:'detail/introduce-all.html'},
+                  {id:'code',text:'快递管理',href:'zhoulei/AddABrand.html'},
+                ]
+              },{
+                text:'跨境通订单管理',
+                items:[
+                  {id:'example',text:'订单管理页',href:'zhoulei/OMS.html'},
+                  {id:'introduce',text:'下单页面',href:'detail/introduce.html'},
+                  {id:'introduce-all',text:'订单批量导入',href:'detail/introduce-all.html'},
+                  {id:'code',text:'跨境通快递管理页',href:'zhoulei/AddABrand.html'},
+                  {id:'code',text:'上传下单人身份信息',href:'chart/shenfen.html'},
+                ]
+              }]
+          },
+		  {
+          id:'menu4', 
+            homePage : 'gh-list',
+          menu:[{
+              text:'单据打印',
+              items:[
+                  {id:'gouhui',text:'待打印订单',href:'form/dialog-grid-gh.html'},
+                  {id:'gh-list',text:'已打印订单',href:'form/gh-list.html'},
+                  {id:'gh-list',text:'已打印订单',href:'form/gh-list.html'},
+                  {id:'gouhui',text:'已校验',href:'form/dialog-grid-gh.html'},
+                  {id:'gh-list',text:'未发货订单',href:'form/gh-list.html'},
+                  {id:'gh-list',text:'已发货订单',href:'form/gh-list.html'},
+              ]
+            },{
+              text:'校验订单',
+              items:[
+                  {id:'gouhui',text:'逐个校验',href:'form/dialog-grid-gh.html'},
+                  {id:'gh-list',text:'整单校验',href:'form/gh-list.html'},
+              ]
+            },			{
+              text:'发货',
+              items:[
+                  {id:'gouhui',text:'逐单发货',href:'form/dialog-grid-gh.html'},
+                  {id:'gh-list',text:'批量发货',href:'form/gh-list.html'},
+              ]
+            },]
+          },
+		  
+		  {
+          id:'menu2', 
+            homePage : 'gh-list',
+          menu:[{
+              text:'销售报表',
+              items:[
+                  {id:'gouhui',text:'货品销售情况',href:'form/dialog-grid-gh.html'},
+                  {id:'gh-list',text:'商品销售情况',href:'form/gh-list.html'},
+                  {id:'gh-list',text:'订单销售情况',href:'form/gh-list.html'},
+                  {id:'gh-list',text:'商家每日汇总',href:'form/gh-list.html'},
+              ]
+            },{
+              text:'财务报表',
+              items:[
+                  {id:'gouhui',text:'订单收入统计',href:'form/dialog-grid-gh.html'},
+                  {id:'gh-list',text:'快递费统计',href:'form/gh-list.html'},
+                  {id:'gouhui',text:'仓库发货情况统计',href:'form/dialog-grid-gh.html'},
+                  {id:'gh-list',text:'库存成本统计',href:'form/gh-list.html'},
+                  {id:'gh-list',text:'进销存统计',href:'form/gh-list.html'},
+              ]
+            },{
+              text:'分析报表',
+              items:[
+                  {id:'gouhui',text:'商品销售排行',href:'form/dialog-grid-gh.html'},
+                  {id:'gh-list',text:'客单价分布情况',href:'form/gh-list.html'},
+                  {id:'gouhui',text:'库存状况分析',href:'form/dialog-grid-gh.html'},
+                  {id:'gh-list',text:'订单作业状况',href:'form/gh-list.html'},
+              ]
+            },
+			{
+              text:'报表配置',
+              items:[
+                  {id:'gouhui',text:'报表配置',href:'form/dialog-grid-gh.html'},
+              ]
+            },
+						]
+          },
+		  {
+            id : 'chart',
+            homePage : 'code',
+            menu : [{
+              text : '各项设置',
+              items:[
+                  {id:'code',text:'基础设置',href:'chart/code.html'},
+                  {id:'line',text:'跨境通参数设置',href:'chart/line.html'},
+              ]
+            }]
+          }];
+      new PageUtil.MainPage({
+        modulesConfig : config
+      });
+    });
+  </script>
+<div style="display:none"><script src='http://v7.cnzz.com/stat.php?id=155540&web_id=155540' language='JavaScript' charset='gb2312'></script></div>
+</body>
+</html>

@@ -1,0 +1,264 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<link href="quote/css/OMS.css" rel="stylesheet">
+<link href="quote/css/demo.css" rel="stylesheet">
+<link href="quote/css/dpl.css" rel="stylesheet">
+<link href="quote/css/bui.css" rel="stylesheet">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+</head>
+
+<body style="margin-left:30px; margin-top:10px">
+<h2>快递添加</h2>
+<hr>
+<form id="J_Form" class="form-horizontal" method="post" style="overflow:hidden">
+    <div class="row">
+        <div class="span control-row-auto">
+            <div id="grid"></div>
+    	</div>
+        <input type="hidden" name="gridValue"><!--存放grid的数据-->
+    </div>
+</form>
+<hr>
+<div class="row">
+    <div class="control-group">
+        <label class="control-label  float">请选择快递：</label>
+        <div class="controls float">
+            <select>
+                <option>顺丰快递</option>
+                <option>申通快递</option>
+            </select>
+        </div>
+    </div>
+</div>
+<!--快递模板-->
+<div class="row" style="margin-top:30px">
+	<h2>申通上海仓模板</h2>
+    <div class="span control-row-auto">
+        <div id="grid3"></div>
+    </div>
+</div>
+<hr>
+<!--快递模板添加删除-->
+<form id="J_Form1" class="form-horizontal" method="post" style="overflow:hidden; margin-top:30px">
+    <div class="row">
+    <h2>&nbsp;&nbsp;&nbsp;添加运费模板</h2>
+    	<div class="row">
+            <div class=" float" style="margin-left:-30px">
+                <label class="control-label">模板名称：</label>
+                <div class="controls"><input class="input-normal control-text" type="text"></div>
+            </div>
+        </div>
+        <div class="span control-row-auto">
+            <div id="grid1"></div>
+            
+    	</div>
+        <input type="hidden" name="gridValue"><!--存放grid的数据-->
+    </div>
+    <div class="row" style="margin-top:10px">
+        <div class="form-actions offset3">
+        	<button type="submit" class="button button-primary">保存</button>
+        </div>
+    </div> 
+</form>
+
+
+<script src="quote/js/jquery-1.8.1.min.js"></script> 
+<script src="quote/js/sea.js"></script> 
+<script src="quote/js/config.js"></script> 
+<script src="quote/js/grid-min.js"></script> 
+<script src="quote/js/common-min.js"></script> 
+<script src="quote/js/menu-min.js"></script> 
+<script src="quote/js/data-min.js"></script> 
+<script src="quote/js/toolbar-min.js"></script> 
+<script src="quote/js/mask-min.js"></script> 
+<script src="quote/js/list-min.js"></script> 
+<script src="quote/js/form-min.js"></script> 
+<script src="quote/js/overlay-min.js"></script>
+<script src="quote/js/editor-min.js"></script> 
+<script src="quote/img/calendar-min.js"></script>
+<script src="quote/js/slider-min.js"></script>
+<!-- script start --> 
+    <script type="text/javascript">
+        function planFormat(value){
+      return value + '转换';
+    }
+      BUI.use(['bui/grid','bui/data','bui/form'],function (Grid,Data,Form) {
+      
+       var columns = [{title : '快递名称',dataIndex :'a',editor : {xtype : 'text',rules:{required:true}}},
+            
+          ],
+      //默认的数据
+      data = [{id:'1',a:'顺丰快递',b:'www.dongliangshi2b.com',},
+        {id:'2',a:'申通快递',b:'www.dongliangshisb.com',}],
+      store = new Data.Store({
+        data:data
+      }),
+      editing = new Grid.Plugins.CellEditing(),
+      grid = new Grid.Grid({
+        render : '#grid',
+        columns : columns,
+        width : 300,
+        forceFit : true,
+        store : store,
+        plugins : [Grid.Plugins.CheckSelection,editing],
+        tbar:{
+            items : [{
+              btnCls : 'button button-small',
+              text : '<i class="icon-plus"></i>添加',
+              listeners : {
+                'click' : addFunction
+              }
+            },
+            {
+              btnCls : 'button button-small',
+              text : '<i class="icon-remove"></i>删除',
+              listeners : {
+                'click' : delFunction
+              }
+            }]
+        }
+ 
+      });
+    grid.render();
+ 
+    function addFunction(){
+      var newData = {school :'请输入学校名称'};
+      store.add(newData);
+      editing.edit(newData,'school'); //添加记录后，直接编辑
+    }
+ 
+    function delFunction(){
+      var selections = grid.getSelection();
+      store.remove(selections);
+    }
+ 
+    var form = new Form.HForm({
+      srcNode : '#J_Form'
+    });
+    form.render();
+ 
+    form.on('beforesubmit',function(){
+      if(!editing.isValid()){
+ 
+        return false;
+      }
+      var str = BUI.JSON.stringify(store.getResult());// 提交前将grid的数据存储到隐藏域，一起提交
+      form.getField('gridValue').set('value',str); 
+    });
+ 
+      
+  }); 
+  
+  
+  <!---->
+  function planFormat(value){
+      return value + '转换';
+    }
+      BUI.use(['bui/grid','bui/data','bui/form'],function (Grid,Data,Form) {
+      
+       var columns = [{title : '快递',dataIndex :'a',width:200,editor : {xtype : 'text',rules:{required:true}}},
+            {title : '运送到',dataIndex :'b',width:450,editor : {xtype : 'text',rules:{required:true}}},
+			{title : '首重(KG)',dataIndex :'c',width:80,editor : {xtype : 'text',rules:{required:true}}},
+			{title : '运费(元)',dataIndex :'d',width:80,editor : {xtype : 'text',rules:{required:true}}},
+			{title : '续重(KG)',dataIndex :'e',width:80,editor : {xtype : 'text',rules:{required:true}}},
+			{title : '运费（元）',dataIndex :'f',width:100,editor : {xtype : 'text',rules:{required:true}}},
+            
+          ],
+      //默认的数据
+      data = [{id:'1',a:'',b:'',c:'', d:'',e:'',f:''},
+
+		],
+      store = new Data.Store({
+        data:data
+      }),
+      editing = new Grid.Plugins.CellEditing(),
+      grid = new Grid.Grid({
+        render : '#grid1',
+        columns : columns,
+        width : 1000,
+        forceFit : true,
+        store : store,
+        plugins : [Grid.Plugins.CheckSelection,editing],
+        tbar:{
+            items : [{
+              btnCls : 'button button-small',
+              text : '<i class="icon-plus"></i>添加',
+              listeners : {
+                'click' : addFunction
+              }
+            },
+            {
+              btnCls : 'button button-small',
+              text : '<i class="icon-remove"></i>删除',
+              listeners : {
+                'click' : delFunction
+              }
+            }]
+        }
+ 
+      });
+    grid.render();
+ 
+    function addFunction(){
+      var newData = {school :'请输入学校名称'};
+      store.add(newData);
+      editing.edit(newData,'school'); //添加记录后，直接编辑
+    }
+ 
+    function delFunction(){
+      var selections = grid.getSelection();
+      store.remove(selections);
+    }
+ 
+    var form = new Form.HForm({
+      srcNode : '#J_Form1'
+    });
+    form.render();
+ 
+    form.on('beforesubmit',function(){
+      if(!editing.isValid()){
+ 
+        return false;
+      }
+      var str = BUI.JSON.stringify(store.getResult());// 提交前将grid的数据存储到隐藏域，一起提交
+      form.getField('gridValue').set('value',str); 
+    });
+ 
+      
+  }); 
+  <!--第一个表格-->
+   BUI.use('bui/grid',function(Grid){
+            var Grid = Grid,
+          columns = [
+            {title : '快递',dataIndex :'a',width:200,editor : {xtype : 'text',rules:{required:true}}},
+            {title : '运送到',dataIndex :'b',width:450,editor : {xtype : 'text',rules:{required:true}}},
+			{title : '首重(KG)',dataIndex :'c',width:80,editor : {xtype : 'text',rules:{required:true}}},
+			{title : '运费(元)',dataIndex :'d',width:80,editor : {xtype : 'text',rules:{required:true}}},
+			{title : '续重(KG)',dataIndex :'e',width:80,editor : {xtype : 'text',rules:{required:true}}},
+			{title : '运费（元）',dataIndex :'f',width:100,editor : {xtype : 'text',rules:{required:true}}},
+          ],
+          data = [{id:'1',a:'申通快递-上海仓库',b:'河南省、湖南省、湖北省、广西壮族自治区、海南省等八个地区',c:'1.0KG', d:'8.00',e:'1.0KG',f:'6.00'},
+        {id:'2',a:'申通快递-上海仓库',b:'山西省、贵州省、陕西省、辽宁省等7个地区',c:'1.0KG', d:'10.00',e:'1.0KG',f:'7.00'},
+		{id:'2',a:'申通快递-上海仓库',b:'甘肃省、青海省、宁夏回族自治区、内蒙古自治区',c:'1.0KG', d:'12.00',e:'1.0KG',f:'8.00'},
+		{id:'2',a:'申通快递-上海仓库',b:'浙江省、安徽省、上海、江苏省',c:'1.0KG', d:'5.00',e:'1.0KG',f:'1.00'},
+		{id:'2',a:'申通快递-上海仓库',b:'北京、广东省、天津',c:'1.0KG', d:'7.00',e:'1.0KG',f:'5.00'},
+		{id:'2',a:'申通快递-上海仓库',b:'福建省、江西省、山东省',c:'1.0KG', d:'7.00',e:'1.0KG',f:'4.00'},
+		{id:'2',a:'申通快递-上海仓库',b:'西藏自治区、新疆维吾尔族自治区',c:'1.0KG', d:'20.00',e:'1.0KG',f:'15.00'},
+		{id:'2',a:'申通快递-上海仓库',b:'全国',c:'1.0KG', d:'8.00',e:'1.0KG',f:'6.00'},];
+ 
+        var grid = new Grid.SimpleGrid({
+          render:'#grid3',
+          columns : columns,
+          items : data,
+          idField : 'a',
+		  width:1000,
+        });
+ 
+        grid.render();
+      });
+    </script>
+<!-- script end -->
+</body>
+</html>

@@ -1,0 +1,276 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<link href="quote/css/demo.css" rel="stylesheet">
+<link href="quote/css/dpl.css" rel="stylesheet">
+<link href="quote/css/bui.css" rel="stylesheet">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style>
+.ma {
+	margin-top: 20px
+}
+</style>
+<title>无标题文档</title>
+</head>
+
+<body style="margin-left:30px">
+
+<form  id="J_Form" class="form-horizontal" style="width:1500px" action="addgood.php">
+    <h2>添加商品</h2>
+        <!--商品类型-->
+    <div class="row">
+            <div class="control-group">
+                <label class="control-label">商品类型：</label>
+                <div class="controls bui-form-group-select" data-type="type1">
+                    <select class="input-small" name="firsttype" id="firsttype" data-rules="{required:true}" data-messages="{required:'请选择分类'}"><option>请选择分类</option></select>&nbsp;&nbsp;
+<!--                    <select class="input-small" name="secondtype" id="secondtype"><option>第二级</option></select>
+                    <select class="input-small" name="thirdtype" id="thirdtype"><option>第三级</option></select>-->
+                </div>
+            </div>
+    </div>
+        <!--商品类型结束-->
+    <div class="row">
+            <div class="control-group">
+                <label class="control-label">商品品牌：</label>
+                <div class="controls bui-form-group-select" data-type="type1">
+                    <select class="input-small" name="brand" id="brand" data-rules="{required:true}" data-messages="{required:'请选择品牌'}"><option>请选择品牌</option></select>&nbsp;&nbsp;
+
+                </div>
+            </div>
+</div>
+
+    <div class="row">
+        <div class="control-group">
+            <label class="control-label">商品产地：</label>
+            <div class="controls bui-form-group-select" data-type="type1">
+                <select class="input-small" name="origin" id="origin" data-rules="{required:true}" data-messages="{required:'请选择产地'}"><option>请选择产地</option></select>&nbsp;&nbsp;
+
+            </div>
+        </div>
+    </div>
+
+	<!--商品名称编号-->
+    <div class="row">
+        <div class="control-group span10">
+            <label class="control-label">商品名称：</label>
+            <div class="controls">
+                <input name="goodname" data-rules="{required:true}" data-tip='{"text":"商品名称","iconCls":"icon icon-user"}'  type="text" class="input-normal control-text">
+            </div>
+        </div>
+        <div class="control-group span10">
+            <label class="control-label">商品编号：</label>
+            <div class="controls">
+                <input name="goodid" data-rules="{required:true,regexp:/^[0-9a-zA-Z]*$/}" data-tip='{"text":"商品编号","iconCls":"icon icon-user"}' data-messages="{regexp:'不是有效的商品编号'}" type="text" class="input-normal control-text" id="goodid">
+            </div>
+        </div>
+    </div>
+    <!--名称编号结束-->
+    <div class="row">
+        <div class="control-group span18">
+            <label class="control-label">商品图片地址：</label>
+            <div class="controls">
+                <input name="photo" data-rules="{required:true,regexp:/(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?/}" data-tip='{"text":"商品图片地址","iconCls":"icon icon-user"}' data-messages="{regexp:'不是有效的图片地址'}" type="text" class="input-normal control-text" style=" width:350px" id="photo">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="control-group span24">
+            <label class="control-label">商品简介：</label>
+            <div class="controls control-row4">
+                <textarea name="abstract" data-rules="{required:true}" class="span8 span-width" id="abstract"></textarea>
+            </div>
+        </div>
+	</div>
+
+    <div class="row">
+              <div class="control-group">
+                  <label class="control-label">商品是否展示：</label>
+                  <div class="controls">
+                      <input type="radio" name="display" value="是"> 是
+                      <input type="radio" name="display" value="否" checked="checked" > 否
+                  </div>
+              </div>
+    </div>
+        <!--二选一结束-->
+    <div class="row" style="margin-left:-40px">
+        <div class="control-group  span12">
+            <label class="control-label" style="width:150px">商品销售价（可不填）：</label>
+            <div class="controls">
+                <input name="price"  data-tip='{"text":"商品销售价","iconCls":"icon icon-user"}'  data-rules="{number:true}" type="text" class="input-normal control-text" id="price">
+            </div>
+        </div>
+        <div class="control-group span12">
+            <label class="control-label" style="width:150px">商品成本价（可不填）：</label>
+            <div class="controls">
+                <input name="cost"  data-tip='{"text":"商品成本价","iconCls":"icon icon-user"}'  data-rules="{number:true}" type="text" class="input-normal control-text" id="cost">
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-left:-40px">
+        <div class="control-group span18">
+            <label class="control-label" style="margin-left:40px">货号：</label>
+            <div class="controls">
+                <input name="goodnumber" data-rules="{required:true}" data-tip='{"text":"货号","iconCls":"icon icon-user"}'  type="text" class="input-normal control-text" style="width:250px" id="goodnumber">
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-left:-40px">
+        <div class="control-group span12">
+            <label class="control-label" style="margin-left:40px">商品编码：</label>
+            <div class="controls">
+                <input name="goodcode" data-rules="{required:true,regexp:/^[0-9a-zA-Z]*$/}" data-messages="{regexp:'不是有效的商品编码'}" data-tip='{"text":"商品编码","iconCls":"icon icon-user"}'  type="text" class="input-normal control-text" id="goodcode">
+            </div>
+        </div>
+        <div class="control-group span12">
+            <label class="control-label" style="margin-left:-40px">条形码：</label>
+            <div class="controls">
+                <input name="barcode" data-rules="{required:true,number:true}" data-tip='{"text":"条形码","iconCls":"icon icon-user"}'  type="text" class="input-normal control-text" id="barcode">
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-left:-40px">
+        <div class="control-group span12">
+            <label class="control-label" style="margin-left:40px">重量（克g）：</label>
+            <div class="controls">
+                <input name="weight" data-rules="{required:true,number:true}" data-tip='{"text":"重量（克g）","iconCls":"icon icon-user"}'  type="text" class="input-normal control-text" id="weight">
+            </div>
+        </div>
+        <div class="control-group span12">
+            <label class="control-label" style="margin-left:-40px">体积（立方米）：</label>
+            <div class="controls">
+                <input name="volume" data-rules="{required:true,number:true}" data-tip='{"text":"体积（立方米）","iconCls":"icon icon-user"}'  type="text" class="input-normal control-text" id="volume">
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-left:-40px">
+        <div class="control-group span12">
+            <label class="control-label" style="margin-left:40px">规格：</label>
+            <div class="controls">
+                <input name="standard" data-rules="{required:true}" data-tip='{"text":"规格","iconCls":"icon icon-user"}'  type="text" class="input-normal control-text" id="standard">
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-left:-40px">
+    <div class="row actions-bar">
+        <div class="form-actions span13 offset3">
+            <button type="submit" class="button button-primary">保存</button>
+            <button type="reset" class="button">重置</button>
+        </div>
+    </div>
+        </div>
+
+</form>
+<script src="quote/js/jquery-1.8.1.min.js"></script> 
+<script src="quote/js/sea.js"></script> 
+<script src="quote/js/config.js"></script> 
+
+<!-- script start --> 
+<!--二选一-->
+<!-- script start -->
+<script type="text/javascript">
+    BUI.use('bui/form',function(Form){
+        new Form.HForm({
+            srcNode : '#J_Form',
+            submitType : 'ajax',
+            callback : function(data){
+                if(data.msg = 1){
+
+                    var msg = '<h2>成功信息</h2>'+
+                            '<p class="auxiliary-text">你可以继续操作以下内容：</p>'+
+                            '<p><a href="Add%20the%20goods.html">继续添加</a> <a href="the%20merchandise%20search.html">查看商品信息</a></p>' +
+                            '<p>提示将在<strong id="div1"></strong>秒后自动关闭</p>';
+                    BUI.Message.Show({
+                        msg : msg,
+                        icon : 'success',
+                        buttons : [],
+                        autoHide :true,
+                        autoHideDelay : 3000,
+                });
+                    count();
+                    document.getElementById("J_Form").reset();
+                }
+            }
+        }).render();
+
+        $('#btnAdd').on('click',function(){
+            $('<input type="hidden" name="h1" value="h1">').appendTo('#J_Form');
+        });
+
+    });
+
+
+
+    var start = 3;
+    var step = 1;
+    function count()
+    {
+        document.getElementById("div1").innerHTML = start;
+        if(start == 3 || start == 0)
+            step *= -1;
+        start += step;
+        setTimeout("count()",1000);
+    }
+
+
+
+    function countDown(secs,surl){
+        var jumpTo = document.getElementById('jumpTo');
+        jumpTo.innerHTML=secs;
+        if(--secs>0){
+            setTimeout("countDown("+secs+",'"+surl+"')",5000);
+        }
+        else{
+            location.href=surl;
+        }
+    }
+
+
+    var select = document.getElementById("brand");
+    select.options.length = 0;
+    $.ajax({
+        type: "GET",
+        url: "brandall.php",
+        dataType: "json",
+        success: function(data){
+            select.options.add(new Option("请选择品牌", ""));
+            for(var i=0;i<data.length;i++){
+                var e = i+1;
+                select.options.add(new Option(data[i].brandname,data[i].brandname));
+            }
+        }
+    });
+
+    var select2 = document.getElementById("firsttype");
+    select2.options.length = 0;
+    $.ajax({
+        type: "GET",
+        url: "showcategoryall.php",
+        dataType: "json",
+        success: function(data){
+            select2.options.add(new Option("请选择分类", ""));
+            for(var i=0;i<data.length;i++){
+                var e = i+1;
+                select2.options.add(new Option(data[i].categoryname,data[i].categoryname));
+            }
+        }
+    });
+
+    var select3 = document.getElementById("origin");
+    select3.options.length = 0;
+    $.ajax({
+        type: "GET",
+        url: "showoriginall.php",
+        dataType: "json",
+        success: function(data){
+            select3.options.add(new Option("请选择产地", ""));
+            for(var i=0;i<data.length;i++){
+                var e = i+1;
+                select3.options.add(new Option(data[i].originname,data[i].originname));
+            }
+        }
+    });
+</script>
+<!--二选一结束--> 
+<!-- script end -->
+</body>
+</html>

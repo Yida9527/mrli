@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<link href="quote/css/OMS.css" rel="stylesheet">
+<link href="quote/css/demo.css" rel="stylesheet">
+  <link href="quote/css/dpl.css" rel="stylesheet">
+  <link href="quote/css/bui.css" rel="stylesheet">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+</head>
+
+<body>
+<style>
+    form h3{
+        margin: 20px 0 10px 0;
+    }
+
+    .price{
+        color: red;
+    }
+
+    .table th, .table td{
+        line-height: 26px;
+    }
+
+    .bui-grid-cell-text .x-icon{
+        margin-left: 5px;
+    }
+</style>
+<!--第一块开始-->
+<form id="J_Form"  class="form-horizontal">
+    <div class="row">
+        <div class="control-group span8">
+        	<label class="control-label">商品名称：</label>
+        	<div class="controls">
+        		<input type="text" class="control-text">
+        	</div>
+     	</div>
+        <div class="control-group span8">
+        	<label class="control-label">商品编号：</label>
+        	<div class="controls">
+        		<input type="text" class="control-text">
+        	</div>
+        </div>
+        <div class="control-group span8">
+        	<label class="control-label">UPC编码：</label>
+        	<div class="controls">
+        		<input type="text" class="control-text">
+        	</div>
+        </div>
+        <!--<div class="control-group span8">
+        	<label class="control-label">供应商编码：</label>
+        	<div class="controls">
+        		<input type="text" class="control-text">
+        	</div>
+        </div>-->
+    </div>
+    <!--第一块第二行-->
+    <div class="row">
+    	<div class="control-group span8">
+            <label class="control-label">商品状态：</label>
+            <div class="controls">
+                <select>
+                    <option>请选择</option>
+                    <option>请选择</option>
+                    <option>请选择</option>
+                </select>
+            </div>
+		</div>
+        <!--<div class="control-group span8">
+            <label class="control-label">选择框：</label>
+            <div class="controls">
+                <select>
+                    <option>请选择</option>
+                    <option>请选择</option>
+                    <option>请选择</option>
+                </select>
+            </div>
+        </div>
+        <div class="control-group span8">
+            <label class="control-label">选择框：</label>
+            <div class="controls">
+                <select>
+                    <option>请选择</option>
+                    <option>请选择</option>
+                    <option>请选择</option>
+                </select>
+            </div>
+        </div>-->
+    </div>
+    <!--第一块第二行结束-->
+<!--地址三级联动-->
+    <div class="row">
+        <!--<div class="span11">
+            <label class="control-label">label：</label>
+            <div class="controls">
+                  <input class=" control-text span3" type="text"><label> - </label><input class="control-text span3" type="text">
+            </div>
+        </div>-->
+        <div class="control-group span16">
+            <label class="control-label">商品类型：</label>
+            <div class="controls bui-form-group-select" data-type="city">
+                <select class="input-small" value="山东省"><option>省份</option></select>&nbsp;&nbsp;
+                <select class="input-small"><option>城市</option></select>
+                <select class="input-small"><option>区</option></select>
+            </div>
+        </div>
+    </div>
+    <div class="actions-bar">
+        <div class="row ">
+            <div class="span13 offset3 ">
+                <button type="submit" class="button button-primary">确定</button>
+                <button type="reset" class="button">重置</button>
+            </div>
+        </div>
+    </div>
+</form>
+<!--三级联动结束-->
+
+<!--第一块结束-->
+
+<!--表格-->
+
+<div class="row">
+    <div class="span">
+        <div id="grid" style="width:1600px">
+                  
+        </div>
+    </div>
+</div>
+<!--表格结束-->
+
+
+
+
+
+
+  <script src="quote/js/jquery-1.8.1.min.js"></script>
+  <script src="quote/js/sea.js"></script>
+  <script src="quote/js/config.js"></script>
+  <script src="quote/js/grid-min.js"></script>
+  <script src="quote/js/common-min.js"></script>
+  <script src="quote/js/menu-min.js"></script>
+  <script src="quote/js/data-min.js"></script>
+  <script src="quote/js/toolbar-min.js"></script>
+  <script src="quote/js/mask-min.js"></script>
+  <script src="quote/js/list-min.js"></script>
+  <script src="quote/js/form-min.js"></script>
+  <script src="quote/js/overlay-min.js"></script>
+  <script src="quote/js/biaoge.js"></script>
+ 
+<!-- script start --> 
+    <script type="text/javascript">
+	<!--地址三级联动-->
+      BUI.use('bui/form',function(Form){
+      
+ 
+      // 自定义类型
+      BUI.Form.Group.Select.addType('type1',{
+        url : '../tree/data/nodes.php',
+        root : {
+          id : '0'
+        }
+      });
+ 
+ 
+      // 静态数据源
+      var data = [{"id" : "1","text":"山东","children":[
+        {"id":"11","text":"济南","leaf":false},
+        {"id":"12","text":"淄博","leaf":false,"children":[
+          {"id":"121","text":"淄川区","leaf":true}
+        ]}
+      ]}];
+ 
+      BUI.Form.Group.Select.addType('type2',{
+        data : data
+      });
+ 
+      var form = new Form.Form({
+        srcNode : '#J_Form'
+      }).render();
+ 
+      
+  });  
+   <!--三级联动结束-->   
+</script>
+</body>
+</html>

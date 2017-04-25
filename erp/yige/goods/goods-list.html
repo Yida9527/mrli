@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>商品列表页</title>
+  	<link href="http://g.alicdn.com/bui/bui/1.1.21/css/bs3/dpl.css" rel="stylesheet">
+  	<link href="http://g.alicdn.com/bui/bui/1.1.21/css/bs3/bui.css" rel="stylesheet">
+</head>
+<body>
+    <form id="J_Form" action="" class="form-horizontal">
+<div class="control-group">
+        <label class="control-label">城市：</label>
+        <div class="controls bui-form-group-select" data-type="city">
+          <select class="input-small" value="山东省"><option>省份</option></select>&nbsp;&nbsp;
+          <select class="input-small"><option>城市</option></select>
+        </div>
+      </div>	</form>
+
+	<div class="row">
+		<form class="form-panel" action="post">
+          <div class="panel-title">
+            <span>
+              <label>报名日期：</label><input type="text" class="calendar" /> <label>至</label> <input type="text" class="calendar" />
+            </span>
+            <span>
+              <label>上阶段审核日期：</label><input type="text" class="calendar" /> <label>至</label> <input type="text" class="calendar" />
+            </span>
+          </div>
+         
+              <select name="">
+                <option>商品类型</option>
+              </select>
+              <select name="">
+                <option>平台类型</option>
+              </select>
+              <select name="">
+                <option>是否在商品池</option>
+              </select>
+              <select name="">
+                <option>是否看样子</option>
+              </select>
+              <select name="">
+                <option>是否已审核</option>
+              </select>
+        
+              <select name="">
+                <option>一级类目</option>
+              </select>
+              <select name="">
+                <option>二级类目</option>
+              </select>
+              <select name="">
+                <option>三级类目</option>
+              </select>
+              <select name="">
+                <option>四级类目</option>
+              </select>
+              <select name="">
+                <option>五级类目</option>
+              </select>
+              <select name="">
+                <option>商品数字id</option>
+              </select>
+           
+              <select name="">
+                <option>一级类目</option>
+              </select>
+              <input type="text"/>
+              <button type="submit" class="button button-primary">查询>></button>
+            
+        </form>
+	</div>
+	<script src="http://g.tbcdn.cn/fi/bui/jquery-1.8.1.min.js"></script>
+	<script src="http://g.alicdn.com/bui/seajs/2.3.0/sea.js"></script>
+	<script src="http://g.alicdn.com/bui/bui/1.1.21/config.js"></script>
+<!-- 日期选择控件script start --> 
+    <script type="text/javascript">
+        BUI.use('bui/calendar',function(Calendar){
+          var datepicker = new Calendar.DatePicker({
+            trigger:'.calendar',
+            autoRender : true
+          });
+        });
+    </script>
+<!-- 日期选择控件script end -->
+<script type="text/javascript">
+      BUI.use('bui/form',function(Form){
+      
+      new Form.Form({
+        srcNode : '#J_Form'
+      }).render();
+      
+  });  
+      
+</script>
+</body>
+</html>

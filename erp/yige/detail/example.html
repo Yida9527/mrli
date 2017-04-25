@@ -1,0 +1,386 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title> 详情页</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+       <link href="../assets/css/dpl-min.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/css/bui-min.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/css/page-min.css" rel="stylesheet" type="text/css" />   <!-- 下面的样式，仅是为了显示代码，而不应该在项目中使用-->
+   <link href="../assets/css/prettify.css" rel="stylesheet" type="text/css" />
+   <link href="../assets/css/dpl.css" rel="stylesheet" type="text/css" />
+ </head>
+ <body>
+  <div class="container">
+	<form id="J_Form" class="form-horizontal span24">
+    	<div class="row">
+			<div class="control-group span8">
+            <label class="control-label">跨境通订单号：</label>
+            <div class="controls">
+              <input name="id" type="text" class="input-normal control-text">
+            </div>
+          </div>
+          <div class="control-group span8">
+            <label class="control-label">平台订单号：</label>
+            <div class="controls">
+              <input name="id" type="text" class="input-normal control-text">
+            </div>
+          </div>   
+          <div class="control-group span8">
+            <label class="control-label">用户电话号：</label>
+            <div class="controls">
+              <input name="id" type="text" class="input-normal control-text">
+            </div>
+          </div>   
+          <div class="control-group span8">
+            <label class="control-label">用户姓名：</label>
+            <div class="controls">
+              <input name="id" type="text" class="input-normal control-text">
+            </div>
+          </div>
+        </div>
+		<div class="row">
+			<div class="control-group span15">
+            	<label class="control-label">按照订单来源查询：</label>
+            	<div class="controls">
+              		<select    name="type" class="input-normal"> 
+                		<option value="">请选择</option>
+                			<option value="saler">淘宝直传</option>
+                			<option value="large">微信直传</option>
+                			<option value="large">Excel上传</option>
+              		</select>
+            	</div>
+          	</div>   
+            <div class="control-group span15">
+            	<label class="control-label">按照订单所属店铺查询：</label>
+            	<div class="controls">
+              		<select    name="type" class="input-normal"> 
+                		<option value="">请选择</option>
+                			<option value="saler">本店</option>
+                			<option value="large">其他商家</option>
+              		</select>
+            	</div>
+          	</div>       
+           <div class="control-group span15 ">
+            <label class="control-label">按订单日期查询：</label>
+            <div id="range" class="controls bui-form-group"  data-rules="{dateRange:true}">
+              <input name="start" class="calendar"    type="text"><label>&nbsp;-&nbsp;</label><input name="end" class="calendar"    type="text">
+            </div>
+          </div>
+          <div class="control-group span15">
+            <label class="control-label">按照收货地址查询：</label>
+            <div class="controls bui-form-group-select"  data-type="city">
+              <select  class="input-small" name="province" value="上海">
+                <option>请选择省</option>
+              </select>
+              <select class="input-small"  name="city" value="上海市"><option>请选择市</option></select>
+              <select class="input-small"  name="county" value="徐汇区"><option>请选择县/区</option></select>
+            </div>
+          </div>
+    	</div>
+			<div class="row form-actions actions-bar">
+            <div class="span13 offset3 ">
+              <button type="submit" class="button button-primary">查询</button>
+              <button type="reset" class="button">重置</button>
+            </div>
+        </div>      </form>  
+  	<div id="grid" style="margin:20px;"></div>  <!-- 订单表格-->
+    
+      <div class="row">
+        <h2>订单量曲线图</h2>
+        <div class="span24" id="number"></div>
+      </div>
+      <div class="row">
+        <div class="span24" id="canvas" style="float:left"></div>
+        <div class="span24" id="region" style="float:left"></div>
+      </div>
+  </div>
+    
+  <script type="text/javascript" src="../assets/js/jquery-1.8.1.min.js"></script>
+  <script type="text/javascript" src="../assets/js/bui-min.js"></script>
+
+  <script type="text/javascript" src="../assets/js/confignew.js"></script>
+  <script type="text/javascript">
+    BUI.use('common/page');
+  </script>
+  <!-- 仅仅为了显示代码使用，不要在项目中引入使用-->
+  <script type="text/javascript" src="../assets/js/prettify.js"></script>
+  <script type="text/javascript" src="../assets/js/sea.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      prettyPrint();
+    });
+  </script> 
+<script type="text/javascript">
+  BUI.use('bui/form',function (Form) {
+    var form = new Form.HForm({
+      srcNode : '#J_Form'
+    });
+
+    form.render();
+  });
+</script>
+
+<script type="text/javascript">
+  BUI.use('bui/grid',function (Grid) {
+    var data = [
+	{id:'1',kjtid:'12219535',money:'115.21',fax:'0',freight:'15.00',name:'朱勇',phone:'13840921213',good:'806108643763',kjtgood:'1518402588029570',source:'淘宝订单',shop:'本店',time:'2016-02-14 10:56',timecomplete:'2016-02-14 10:56'},
+	{id:'1',kjtid:'12219535',money:'115.21',fax:'0',freight:'15.00',name:'朱勇',phone:'13840921213',good:'806108643763',kjtgood:'1518402588029570',source:'淘宝订单',shop:'本店',time:'2016-02-14 10:56',timecomplete:'2016-02-14 10:56'},
+	{id:'1',kjtid:'12219535',money:'115.21',fax:'0',freight:'15.00',name:'朱勇',phone:'13840921213',good:'806108643763',kjtgood:'1518402588029570',source:'淘宝订单',shop:'本店',time:'2016-02-14 10:56',timecomplete:'2016-02-14 10:56'},
+	{id:'1',kjtid:'12219535',money:'115.21',fax:'0',freight:'15.00',name:'朱勇',phone:'13840921213',good:'806108643763',kjtgood:'1518402588029570',source:'淘宝订单',shop:'本店',time:'2016-02-14 10:56',timecomplete:'2016-02-14 10:56'},
+	{id:'1',kjtid:'12219535',money:'115.21',fax:'0',freight:'15.00',name:'朱勇',phone:'13840921213',good:'806108643763',kjtgood:'1518402588029570',source:'淘宝订单',shop:'本店',time:'2016-02-14 10:56',timecomplete:'2016-02-14 10:56'},
+	{id:'1',kjtid:'12219535',money:'115.21',fax:'0',freight:'15.00',name:'朱勇',phone:'13840921213',good:'806108643763',kjtgood:'1518402588029570',source:'淘宝订单',shop:'本店',time:'2016-02-14 10:56',timecomplete:'2016-02-14 10:56'},
+	{id:'1',kjtid:'12219535',money:'115.21',fax:'0',freight:'15.00',name:'朱勇',phone:'13840921213',good:'806108643763',kjtgood:'1518402588029570',source:'淘宝订单',shop:'本店',time:'2016-02-14 10:56',timecomplete:'2016-02-14 10:56'},
+	{id:'1',kjtid:'12219535',money:'115.21',fax:'0',freight:'15.00',name:'朱勇',phone:'13840921213',good:'806108643763',kjtgood:'1518402588029570',source:'淘宝订单',shop:'本店',time:'2016-02-14 10:56',timecomplete:'2016-02-14 10:56'},
+	{id:'1',kjtid:'12219535',money:'115.21',fax:'0',freight:'15.00',name:'朱勇',phone:'13840921213',good:'806108643763',kjtgood:'1518402588029570',source:'淘宝订单',shop:'本店',time:'2016-02-14 10:56',timecomplete:'2016-02-14 10:56'},
+	{id:'1',kjtid:'12219535',money:'115.21',fax:'0',freight:'15.00',name:'朱勇',phone:'13840921213',good:'806108643763',kjtgood:'1518402588029570',source:'淘宝订单',shop:'本店',time:'2016-02-14 10:56',timecomplete:'2016-02-14 10:56'},
+	{id:'1',kjtid:'12219535',money:'115.21',fax:'0',freight:'15.00',name:'朱勇',phone:'13840921213',good:'806108643763',kjtgood:'1518402588029570',source:'淘宝订单',shop:'本店',time:'2016-02-14 10:56',timecomplete:'2016-02-14 10:56'},
+	],
+ 
+        grid = new Grid.SimpleGrid({
+          render : '#grid', //显示Grid到此处
+          width : 950,      //设置宽度
+          columns : [
+            {title:'跨境通订单ID',dataIndex:'kjtid',width:80},
+            {title:'订单总金额',dataIndex:'money',width:60},
+            {title:'税费',dataIndex:'fax',width:40},
+            {title:'运费',dataIndex:'freight',width:50},
+            {title:'收件人',dataIndex:'name',width:80},
+            {title:'电话',dataIndex:'phone',width:90},
+            {title:'运单号',dataIndex:'good',width:100},
+            {title:'平台订单号',dataIndex:'kjtgood',width:150},
+            {title:'订单来源',dataIndex:'source',width:90},
+            {title:'订单所属',dataIndex:'shop',width:90},
+            {title:'下单时间',dataIndex:'time',width:130},
+            {title:'成功时间',dataIndex:'timecomplete',width:130},
+          ]
+        });
+      grid.render();
+      grid.showData(data);
+  });
+</script>
+
+  <script type="text/javascript">
+    BUI.use('common/page');
+
+    BUI.use('bui/chart',function (Chart) {
+      
+        var chart = new Chart.Chart({
+          render : '#number',
+          width : 1200,
+          height : 300,
+          plotCfg : {
+            margin : [50,50,80] //画板的边距
+          },
+          title : {
+            text : '单日订单金额汇总曲线'
+          },
+          subTitle : {
+            text : 'Source: '
+          },
+          seriesOptions : { //设置多个序列共同的属性
+            areaCfg : { //如果数据序列未指定类型，则默认为指定了xxCfg的类型，否则都默认是line
+              markers : {
+                single : true
+              },
+              pointStart: 1,
+              pointInterval: 1
+ 
+            }
+          },
+          tooltip : {
+            valueSuffix : '元',
+            shared : true,
+            crosshairs : true
+          },
+          series : [{
+            name: '本店订单总金额',
+            data: [null, null, null, null, null, 6.55 , 11, 32, 110, 235, 369, 640,1005, 1436,
+                    2063, 3057, 4618, 6444, 9822, 15468, 20434, 24126,27387, 29459, 31056, 31982,
+                    32040, 31233, 29224, 27342, 26662,26956, 27912, 28999, 28965, 27826, 25579,
+                    25722, 24826, 24605,24304, 23464, 23708, 24099, 24357, 24237, 24401, 24344,
+                    23586,22380, 21004, 17287, 14747, 13076, 12555, 12144, 11009, 10950,
+                    10871, 10824, 10577, 10527, 10475, 10421, 10358, 10295, 10104 
+					
+                ]
+            }, {
+                name: '其他店订单总金额',
+                data: [null, null, null, null, null, null, null , null , null ,null,5, 25, 50,
+                  120, 150, 200, 426, 660, 869, 1060, 1605, 2471, 3322,4238, 5221, 6129,
+                  7089, 8339, 9399, 10538, 11643, 13092, 14478,15915, 17385, 19055, 21205,
+                  23044, 25393, 27935, 30062, 32049,33952, 35804, 37431, 39197, 45000, 43000,
+                  41000, 39000, 37000,35000, 33000, 31000, 29000, 27000, 25000, 24000, 23000,
+                  22000,21000, 20000, 19000, 18000, 18000, 17000, 16000
+                ]
+            }]
+              
+        });
+ 
+        chart.render();
+    });
+
+  </script>
+
+  <script type="text/javascript">
+    BUI.use('common/page');
+
+    BUI.use('bui/chart',function (Chart) {
+      
+        var chart = new Chart.Chart({
+          render : '#canvas',
+          width : 600,
+          height : 500,
+          title : {
+            text : '各个店铺总金额分布图'
+          },
+          legend : null ,//不显示图例
+          seriesOptions : { //设置多个序列共同的属性
+            pieCfg : {
+              allowPointSelect : true,
+              labels : {
+                distance : 40,
+                label : {
+                  //文本信息可以在此配置
+                },
+                renderer : function(value,item){ //格式化文本
+                  return value + ' ' + (item.point.percent * 100).toFixed(2)  + '%'; 
+                }
+              }
+            }
+          },
+          tooltip : {
+            pointRenderer : function(point){
+              return (point.percent * 100).toFixed(2)+ '%';
+            }
+          },
+          series : [{
+              type: 'pie',
+              name: '所占销量比例',
+              data: [
+                ['本店',   45.0],
+                ['分销店铺1',       26.8],
+                {
+                    name: '分销店铺2',
+                    y: 12.8,
+                    sliced: true,
+                    selected: true
+                },
+                ['分销店铺三',    8.5],
+                ['分销店铺四',     6.2],
+                ['分销店铺五',   0.7]
+              ]
+          }]
+        });
+ 
+        chart.render();
+    });
+
+  </script>
+
+  <script type="text/javascript">
+    BUI.use('common/page');
+
+    BUI.use('bui/chart',function (Chart) {
+      
+        var chart = new Chart.Chart({
+          render : '#region',
+          width : 600,
+          height : 500,
+          title : {
+            text : '订单来源区域分布图'
+          },
+          legend : null ,//不显示图例
+          seriesOptions : { //设置多个序列共同的属性
+            pieCfg : {
+              allowPointSelect : true,
+              labels : {
+                distance : 40,
+                label : {
+                  //文本信息可以在此配置
+                },
+                renderer : function(value,item){ //格式化文本
+                  return value + ' ' + (item.point.percent * 100).toFixed(2)  + '%'; 
+                }
+              }
+            }
+          },
+          tooltip : {
+            pointRenderer : function(point){
+              return (point.percent * 100).toFixed(2)+ '%';
+            }
+          },
+          series : [{
+              type: 'pie',
+              name: '占总销量比例',
+              data: [
+                ['江浙沪地区',   45.0],
+                ['东北地区',       26.8],
+                {
+                    name: '华东区',
+                    y: 12.8,
+                    sliced: true,
+                    selected: true
+                },
+                ['华北地区',    8.5],
+                ['西南地区',     6.2],
+                ['中南地区',   0.7]
+              ]
+          }]
+        });
+ 
+        chart.render();
+    });
+
+  </script>
+
+<!--    <script type="text/javascript">
+        BUI.use(['bui/grid','bui/data'],function(Grid,Data){
+            var Grid = Grid,
+          Store = Data.Store,
+          columns = [
+            {title : '表头1',dataIndex :'a', width:100},
+            {id: '123',title : '表头2',dataIndex :'b', width:100},
+            {title : '表头3',dataIndex : 'c',width:200}
+          ],
+ 		data = [{a:'123'},{a:'cdd',b:'edd'},{a:'1333',c:'eee',d:2}];
+       /**
+         * 自动发送的数据格式：
+         *  1. start: 开始记录的起始数，如第 20 条,从0开始
+         *  2. limit : 单页多少条记录
+         *  3. pageIndex : 第几页，同start参数重复，可以选择其中一个使用
+         *
+         * 返回的数据格式：
+         *  {
+         *     "rows" : [{},{}], //数据集合
+         *     "results" : 100, //记录总数
+         *     "hasError" : false, //是否存在错误
+         *     "error" : "" // 仅在 hasError : true 时使用
+         *   }
+         * 
+         */
+        var store = new Store({
+            url : 'data/grid-data.php',
+            autoLoad:true, //自动加载数据
+            params : { //配置初始请求的参数
+              a : 'a1',
+              b : 'b1'
+            },
+            pageSize:3	// 配置分页数目
+          }),
+          grid = new Grid.Grid({
+            render:'#grid',
+            columns : columns,
+            loadMask: true, //加载数据时显示屏蔽层
+            store: store,
+            // 底部工具栏
+            bbar:{
+                // pagingBar:表明包含分页栏
+                pagingBar:true
+            }
+          });
+ 
+        grid.render();
+      });
+    </script>
+-->
+<body>
+</html>  

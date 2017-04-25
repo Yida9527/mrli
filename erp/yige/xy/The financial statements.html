@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.zbj {
+	margin-left: 25px
+}
+#ccc {
+color:
+}
+.bui-grid-row-read {
+	color: red;
+}
+.bui-grid-row-disabled {
+	color: #999;
+}
+</style>
+<meta charset="utf-8">
+<title>表格操作</title>
+<!-- 此文件为了显示Demo样式，项目中不需要引入 -->
+<link href="quote/css/OMS.css" rel="stylesheet">
+<link href="quote/css/demo.css" rel="stylesheet">
+<link href="quote/css/dpl.css" rel="stylesheet">
+<link href="quote/css/bui.css" rel="stylesheet">
+</head>
+<body style=" margin-left:30px">
+<h2>采购入库对账表</h2>
+<div class="demo-content">
+  <div class="row">
+    <div class="span">
+      <div id="grid" style="width:1600px"> </div>
+    </div>
+  </div>
+  <!--其他费用表格-->
+    <form id="J_Form5" class="form-horizontal" method="post" style="margin-top:30px">
+    	<h2 style="margin-bottom:-5px">费用明细</h2>
+        <div class="row">
+            <div class="span control-row-auto">
+                <div id="grid5"></div>
+            </div>
+            <input type="hidden" name="gridValue"><!--存放grid的数据-->
+        </div> 
+        <h2>入库费用总计：<span>￥5025400</span></h2>
+        <hr>
+</form>
+  <!--其他费用表格结束-->
+  <div class="row" style="margin-top:20px">
+    <label class=" wenzi" style="width:190px; font-size:20px; font-weight:bold; float:left; margin-left:30px">成本计算方式：</label>
+    <div class="control-group  float">
+      <div class="controls float">
+        <input type="radio" name="ismerge" value="1" class="zbj">
+        运费不计入成本
+        <input type="radio" name="ismerge" value="2" checked="checked" class="zbj">
+        按照体积计算成本
+        <input type="radio" name="ismerge" value="3" checked="checked" class="zbj">
+        按照重量计算成本 </div>
+        <input type="radio" name="ismerge" value="4" checked="checked" class="zbj">
+        按照单价计算成本 </div>
+    </div>
+  </div>
+  <div class="row">
+  	<h2 style="margin-left:30px; margin-top:30px">总计：
+    	<span>总费用：￥5025400</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <span>总重量：5000吨</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <span>总体积：6000m³</span>
+    </h2>
+  </div>
+  <div class="actions-bar">
+    <div class="row ">
+      <div class="span13 offset3 ">
+        <button type="submit" class="button button-primary">确定归档</button>
+      </div>
+    </div>
+  </div>
+  <script src="quote/js/jquery-1.8.1.min.js"></script> 
+  <script src="quote/js/sea.js"></script> 
+  <script src="quote/js/config.js"></script> 
+  <script src="quote/js/grid-min.js"></script> 
+  <script src="quote/js/common-min.js"></script> 
+  <script src="quote/js/menu-min.js"></script> 
+  <script src="quote/js/data-min.js"></script> 
+  <script src="quote/js/toolbar-min.js"></script> 
+  <script src="quote/js/mask-min.js"></script> 
+  <script src="quote/js/list-min.js"></script> 
+  
+  <!-- script start --> 
+  <script type="text/javascript">
+        BUI.use(['bui/grid','bui/data'],function(Grid,Data){
+			var Grid = Grid,
+            Store = Data.Store,
+          columns = [
+            {title : '货号',dataIndex :'a', width:350,editor : {xtype : 'text',rules:{required:true}}},
+            {title : '名称',dataIndex :'b', width:500,editor : {xtype : 'text',rules:{required:true}}},//使用现有的渲染函数，日期格式化
+            {title : '单价',dataIndex :'c', width:150,editor : {xtype : 'text',rules:{required:true}}},
+			{title : '规格',dataIndex :'d', width:150,editor : {xtype : 'text',rules:{required:true}}},
+			{title : '条码',dataIndex :'e', width:350,editor : {xtype : 'text',rules:{required:true}}},
+			{title : '预计采购数量',dataIndex :'f', width:150,editor : {xtype : 'text',rules:{required:true}}},
+			{title : '实际装箱数量',dataIndex :'g', width:150,editor : {xtype : 'text',rules:{required:true}}},
+			{title : '入库数量',dataIndex :'h', width:150,editor : {xtype : 'date',rules:{required:true},},renderer : Grid.Format.dateRenderer,},
+          ],
+          data = good;
+
+        var store = new Store({
+			autoLoad:true,
+            remoteSort : true,
+			pageSize:10	,	// 需要在store中 配置pageSize
+			data : data,
+
+
+          }),
+          grid = new Grid.Grid({
+            render:'#grid',
+            forceFit : true,
+            columns : columns,
+            store : store,
+			width : 1500,
+			 itemStatusFields : { //设置数据跟状态的对应关系
+              disabled : 'disabled',
+              read : 'readed' //如果readed : true,则附加 bui-grid-row-read 样式
+            },
+			 // 底部工具栏
+            bbar:{
+                // pagingBar:表明包含分页栏
+				/*pagingBar: {
+					xclass: 'pagingBar'					
+				}*/
+                pagingBar:true
+            },	
+          });
+ 
+        grid.render();
+ 
+        grid.on('cellclick',function  (ev) {
+          var record = ev.record, //点击行的记录
+            field = ev.field, //点击对应列的dataIndex
+            target = $(ev.domTarget); //点击的元素
+			<!--分页-->
+			 
+        });
+      });
+	  <!--其他费用表格-->
+	  BUI.use('bui/grid',function(Grid){
+            var Grid = Grid,
+          columns = [
+            {title : '费用名称',dataIndex :'a', width:300},
+            {id: '123',title : '费用金额(元)',dataIndex :'b', width:300},
+          ],
+          data = [
+		  			{a:'所有商品费用',b:'5000000'},
+					{a:'包材费用',b:'200'},
+					{a:'人工费用',b:'200'},
+					{a:'物流费用',b:'25000'}
+				];
+ 
+        var grid = new Grid.SimpleGrid({
+          render:'#grid10',
+          columns : columns,
+          items : data,
+          idField : 'a'
+        });
+ 
+        grid.render();
+      });
+	  <!--其他费用删除1js-->
+   function planFormat(value){
+      return value + '转换';
+    }
+      BUI.use(['bui/grid','bui/data','bui/form'],function (Grid,Data,Form) {
+      
+       var columns = [{title : '费用名称',dataIndex :'a', width:200,editor : {xtype : 'text',rules:{required:true}}},
+            {title : '费用金额（元）',dataIndex :'b', width:200,editor : {xtype : 'text',rules:{required:true}}},
+			{title : '备注',dataIndex :'c', width:300,editor : {xtype : 'text',rules:{required:true}}},//使用现有的渲染函数，日期格式化
+            
+          ],
+      //默认的数据
+      data = [{a:'所有商品费用',b:'5000000'},
+					{a:'包材费用',b:'200'},
+					{a:'人工费用',b:'200'},
+					{a:'物流费用',b:'25000'},],
+      store = new Data.Store({
+        data:data
+      }),
+      editing = new Grid.Plugins.CellEditing(),
+      grid = new Grid.Grid({
+        render : '#grid5',
+        columns : columns,
+        width : 700,
+        forceFit : true,
+        store : store,
+        plugins : [Grid.Plugins.CheckSelection,editing],
+        tbar:{
+            items : [{
+              btnCls : 'button button-small',
+              text : '<i class="icon-plus"></i>添加',
+              listeners : {
+                'click' : addFunction
+              }
+            },
+            {
+              btnCls : 'button button-small',
+              text : '<i class="icon-remove"></i>删除',
+              listeners : {
+                'click' : delFunction
+              }
+            }]
+        }
+ 
+      });
+    grid.render();
+ 
+    function addFunction(){
+      var newData = {school :'请输入学校名称'};
+      store.add(newData);
+      editing.edit(newData,'school'); //添加记录后，直接编辑
+    }
+ 
+    function delFunction(){
+      var selections = grid.getSelection();
+      store.remove(selections);
+    }
+ 
+    var form = new Form.HForm({
+      srcNode : '#J_Form5'
+    });
+    form.render();
+ 
+    form.on('beforesubmit',function(){
+      if(!editing.isValid()){
+ 
+        return false;
+      }
+      var str = BUI.JSON.stringify(store.getResult());// 提交前将grid的数据存储到隐藏域，一起提交
+      form.getField('gridValue').set('value',str); 
+    });
+ 
+      
+  }); 
+  <!--其他费用1js结束-->
+    </script>
+  <!-- script end --> 
+  
+  
+</div>
+</body>
+</html>

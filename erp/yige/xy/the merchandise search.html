@@ -1,0 +1,276 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<link href="quote/css/OMS.css" rel="stylesheet"/>
+<link href="quote/css/demo.css" rel="stylesheet"/>
+  <link href="quote/css/dpl.css" rel="stylesheet"/>
+  <link href="quote/css/bui.css" rel="stylesheet"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+</head>
+
+<body>
+<style>
+    form h3{
+        margin: 20px 0 10px 0;
+    }
+
+    .price{
+        color: red;
+    }
+
+    .table th, .table td{
+        line-height: 26px;
+    }
+
+    .bui-grid-cell-text .x-icon{
+        margin-left: 5px;
+    }
+</style>
+<!--第一块开始-->
+<form id="J_Form" action="javascript:select_goods()"  class="form-horizontal">
+    <div class="row">
+        <div class="control-group span8">
+        	<label class="control-label">商品名称：</label>
+        	<div class="controls">
+        		<input type="text" name="goods_name" id="goods_name" class="control-text"/>
+        	</div>
+     	</div>
+        <div class="control-group span8">
+        	<label class="control-label">商品编号：</label>
+        	<div class="controls">
+        		<input type="text" name="goods_id" id="goods_id" class="control-text"/>
+        	</div>
+        </div>
+        <div class="control-group span8">
+        	<label class="control-label">UPC编码：</label>
+        	<div class="controls">
+        		<input type="text" name="goods_upc" id="goods_upc" class="control-text"/>
+        	</div>
+        </div>
+        <!--<div class="control-group span8">
+        	<label class="control-label">供应商编码：</label>
+        	<div class="controls">
+        		<input type="text" class="control-text">
+        	</div>
+        </div>-->
+    </div>
+    <!--第一块第二行-->
+    <div class="row">
+    	<div class="control-group span8">
+            <label class="control-label">商品状态：</label>
+            <div class="controls">
+                <select>
+                    <option>请选择</option>
+                    <option>请选择</option>
+                    <option>请选择</option>
+                </select>
+            </div>
+		</div>
+        <!--<div class="control-group span8">
+            <label class="control-label">选择框：</label>
+            <div class="controls">
+                <select>
+                    <option>请选择</option>
+                    <option>请选择</option>
+                    <option>请选择</option>
+                </select>
+            </div>
+        </div>
+        <div class="control-group span8">
+            <label class="control-label">选择框：</label>
+            <div class="controls">
+                <select>
+                    <option>请选择</option>
+                    <option>请选择</option>
+                    <option>请选择</option>
+                </select>
+            </div>
+        </div>-->
+    </div>
+    <!--第一块第二行结束-->
+<!--地址三级联动-->
+    <div class="row">
+        <!--<div class="span11">
+            <label class="control-label">label：</label>
+            <div class="controls">
+                  <input class=" control-text span3" type="text"><label> - </label><input class="control-text span3" type="text">
+            </div>
+        </div>-->
+        <div class="control-group span16">
+            <label class="control-label">商品类型：</label>
+            <div class="controls bui-form-group-select" >
+                <select class="input-small" ><option>商品类型</option></select>&nbsp;&nbsp;
+               <!-- <select class="input-small"><option>城市</option></select>
+                <select class="input-small"><option>区</option></select>  -->
+            </div>
+        </div>
+    </div>
+    <div class="actions-bar">
+        <div class="row ">
+            <div class="span13 offset3 ">
+                <button type="submit" class="button button-primary">确定</button>
+                <button type="reset" class="button">重置</button>
+            </div>
+        </div>
+    </div>
+</form>
+<!--三级联动结束-->
+
+<!--第一块结束-->
+
+<!--表格-->
+
+<div class="row">
+    <div class="span">
+        <div id="grid" style="width:1600px">
+                  
+        </div>
+    </div>
+</div>
+<!--表格结束-->
+
+<div class="row">
+    <div class="span">
+        <div id="test" style="width:1600px">
+                  
+        </div>
+    </div>
+</div>
+
+    <script type="text/javascript">
+  
+    </script>
+
+
+
+
+  <script src="quote/js/jquery-1.8.1.min.js"></script>
+  <script src="quote/js/sea.js"></script>
+  <script src="quote/js/config.js"></script>
+  <script src="quote/js/grid-min.js"></script>
+  <script src="quote/js/common-min.js"></script>
+  <script src="quote/js/menu-min.js"></script>
+  <script src="quote/js/data-min.js"></script>
+  <script src="quote/js/toolbar-min.js"></script>
+  <script src="quote/js/mask-min.js"></script>
+  <script src="quote/js/list-min.js"></script>
+  <script src="quote/js/form-min.js"></script>
+  <script src="quote/js/overlay-min.js"></script>
+  <script src="quote/js/biaoge.js"></script>
+ 
+<!-- script start --> 
+    <script type="text/javascript">
+    
+    function select_goods(){
+    	
+    	$("#grid").empty();
+    	
+    	var goods_name = $("#goods_name").val();
+    	var goods_id = $("#goods_id").val();
+    	var goods_upc = $("#goods_upc").val();
+    	
+    	BUI.use(['bui/grid','bui/data'],function(Grid,Data){
+            var Grid = Grid,
+				Store = Data.Store,
+          columns = [
+            {title : '商品编号',dataIndex :'goodid', width:120},
+            {id: '123',title : '商品名称',dataIndex :'goodname', width:80},
+			{title : 'UPC',dataIndex : 'goodcode',width:80},
+            {title : '商品分类',dataIndex : 'thirdtype',width:80},
+			{title : '商品销售价',dataIndex : 'price',width:80},
+			{title : '商品成本价',dataIndex : 'cost',width:100},
+			{title : '商品状态',dataIndex : 'state',width:100},
+			{title : '商品图片',dataIndex : 'photo',width:100},
+			{title : '体积',dataIndex : 'volume',width:100},
+			{title : '重量（克g）',dataIndex : 'weight',width:120},
+			{title : '库存',dataIndex : 'inventory',width:120},
+          ];
+        var store = new Store({
+			url : 'searchall.php',
+			
+			 params : {         //设置请求时的参数
+			      select : 'ture',
+			      goodname : goods_name,
+			      goodid : goods_id,
+			      barcode : goods_upc
+			    },
+					proxy : {//设置请求相关的参数
+						method : 'post',
+						dataType : 'json', //返回数据的类型
+						limitParam : 'pageSize', //一页多少条记录
+						pageIndexParam : 'pageNum', //页码
+						startParam : 'startNum',//起始记录
+						
+						//select : 'ture'
+
+					},
+					
+			autoLoad:true, //自动加载数据
+			pageSize:20	// 配置分页数目
+          }),
+          grid = new Grid.Grid({
+            render:'#grid',
+            forceFit : true,
+            columns : columns,
+            store : store,
+			 // 底部工具栏
+            bbar:{
+                // pagingBar:表明包含分页栏
+				/*pagingBar: {
+					xclass: 'pagingBar'					
+				}*/
+                pagingBar:true
+            },	
+          });
+ 
+        grid.render();
+        
+        grid.on('cellclick',function  (ev) {
+          var record = ev.record, //点击行的记录
+            field = ev.field, //点击对应列的dataIndex
+            target = $(ev.domTarget); //点击的元素
+			<!--分页-->
+			 
+        });
+      });// JavaScript Document
+      
+    }
+
+    
+	<!--地址三级联动-->
+      BUI.use('bui/form',function(Form){
+    	  
+    	
+ 
+      // 自定义类型
+      BUI.Form.Group.Select.addType('type1',{
+        url : '../tree/data/nodes.php',
+        root : {
+          id : '0'
+        }
+      });
+ 
+ 
+      // 静态数据源
+      var data = [{"id" : "1","text":"山东","children":[
+        {"id":"11","text":"济南","leaf":false},
+        {"id":"12","text":"淄博","leaf":false,"children":[
+          {"id":"121","text":"淄川区","leaf":true}
+        ]}
+      ]}];
+ 
+      BUI.Form.Group.Select.addType('type2',{
+        data : data
+      });
+ 
+      var form = new Form.Form({
+        srcNode : '#J_Form'
+      }).render();
+ 
+      
+  });  
+   <!--三级联动结束-->   
+</script>
+</body>
+</html>

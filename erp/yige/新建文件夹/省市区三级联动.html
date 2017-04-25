@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>表单分组</title>
+<!-- 此文件为了显示Demo样式，项目中不需要引入 -->
+<link href="../../assets/code/demo.css" rel="stylesheet">
+ 
+  <link href="http://g.alicdn.com/bui/bui/1.1.21/css/bs3/dpl.css" rel="stylesheet">
+  <link href="http://g.alicdn.com/bui/bui/1.1.21/css/bs3/bui.css" rel="stylesheet">
+ 
+</head>
+<body>
+  <div class="demo-content">
+    <form id="J_Form">
+      <div class="row">
+        <div class="span10">
+          <h2>指定类型的联动框</h2>
+          <p>
+            <div class="bui-form-group-select" data-type="city">
+              <label>省市联动：</label>
+              <select class="input-small" name="province" value="山东省">
+                <option>请选择省</option>
+              </select>
+              <select class="input-small"  name="city"><option>请选择市</option></select>
+              <select class="input-small"  name="county"><option>请选择县/区</option></select>
+            </div>
+          </p>
+          <h2>指定url的联动框</h2>
+          <p>
+            <div class="bui-form-group-select" data-url="city.json">
+              <label>省市联动：</label>
+              <select class="input-small" name="province1" value="1">
+                <option>请选择省</option>
+              </select>
+              <select class="input-small"  name="city1"><option>请选择市</option></select>
+              <select class="input-small"  name="county1"><option>请选择县/区</option></select>
+            </div>
+          </p>
+ 
+          <h2>自定义类型的联动框</h2>
+          <p>
+            <div class="bui-form-group-select" data-type="custom">
+              <label>省市联动：</label>
+              <select class="input-small" name="province1" value="1">
+                <option>请选择省</option>
+              </select>
+              <select class="input-small"  name="city1"><option>请选择市</option></select>
+              <select class="input-small"  name="county1"><option>请选择县/区</option></select>
+            </div>
+          </p>
+ 
+        </div>
+        <div class="span10">
+          <h2>勾选1-2个</h2>
+          <div class="bui-form-group-check" data-range="[1,2]" data-messages="{checkRange:'勾选{0}-{1}项'}">
+            <label><input name="ck" type="checkbox" value="1" />一</label>
+            <label><input name="ck" type="checkbox" value="2" />二</label>
+            <label><input name="ck" type="checkbox" value="3" />三</label>
+            <label><input name="ck" type="checkbox" value="4" />四</label>
+            <label><input name="ck" type="checkbox" value="5" />五</label>
+          </div>
+          <hr>
+          <h2>勾选2-4个</h2>
+          <div class="bui-form-group-check" data-range="[2,4]" data-messages="{checkRange:'勾选{0}-{1}项'}">
+            <label><input name="ck" type="checkbox" value="1" />一</label>
+            <label><input name="ck" type="checkbox" value="2" />二</label>
+            <label><input name="ck" type="checkbox" value="3" />三</label>
+            <label><input name="ck" type="checkbox" value="4" />四</label>
+            <label><input name="ck" type="checkbox" value="5" />五</label>
+          </div>
+        </div>
+      </div>
+ 
+      <div class="row">
+        <h2>一般分组</h2>
+        <div id='g1' class="span10 bui-form-group">
+          <input class="input-small" data-rules="{number:true,required : true}" type="text">
+          <input class="input-small" data-rules="{number:true,required : true}" type="text">   
+          <input class="input-small" data-rules="{number:true,required : true}" type="text">
+        </div>
+        <button id="btn1" type="button" class="button">校验分组</button>
+      </div>
+    </form>
+    
+ 
+  <script src="http://g.tbcdn.cn/fi/bui/jquery-1.8.1.min.js"></script>
+  <script src="http://g.alicdn.com/bui/seajs/2.3.0/sea.js"></script>
+  <script src="http://g.alicdn.com/bui/bui/1.1.21/config.js"></script>
+ 
+<!-- script start --> 
+    <script type="text/javascript">
+      BUI.use('bui/form',function(Form){
+      
+ 
+      var data = [{"id" : "1","text":"山东","children":[
+        {"id":"11","text":"济南","leaf":false},
+        {"id":"12","text":"淄博","leaf":false,"children":[
+          {"id":"121","text":"高青","leaf":true}
+        ]}
+      ]}];
+      //定义类型
+      BUI.Form.Group.Select.addType('custom',{
+        data : data //指定数据
+      });
+      var form = new Form.Form({
+        srcNode : '#J_Form'
+      }).render();
+ 
+      $('#btn1').on('click',function(){
+        var g1 = form.getChild('g1');
+        g1.valid();
+        if(g1.isValid()){
+          console.log('valid');
+        }
+      });
+      
+  });  
+      
+</script>
+<!-- script end -->
+  </div>
+</body>
+</html>

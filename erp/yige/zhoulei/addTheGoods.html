@@ -1,0 +1,195 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<link href="quote/css/demo.css" rel="stylesheet">
+<link href="quote/css/dpl.css" rel="stylesheet">
+<link href="quote/css/bui.css" rel="stylesheet">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style>
+.ma {
+	margin-top: 20px
+}
+</style>
+<title>无标题文档</title>
+</head>
+
+<body style="margin-left:30px">
+<h2>添加商品</h2>
+<div class="default">
+	<!--商品类型-->
+    <div id="J_Form1"  class="form-horizontal">
+        <div class="control-group">
+            <label class="control-label">商品类型：</label>
+            <div class="controls bui-form-group-select" data-type="type1">
+                <select class="input-small">
+                	<option>母婴用品</option>
+                    <option>护肤洗护</option>
+                    <option>生活日用</option>
+                </select>&nbsp;&nbsp;
+                <select class="input-small">
+                	<option>纸尿裤</option>
+                    <option>宝宝喂养</option>
+                    <option>清洁洗护</option>
+                </select>
+                <select class="input-small">
+                	<option>婴儿纸尿裤</option>
+                    <option>婴儿拉拉裤</option>
+                    <option>婴儿清洁棉</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <!--商品类型结束-->
+    <div id="J_Form2"  class="form-horizontal">
+        <div class="control-group">
+            <label class="control-label">商品品牌：</label>
+            <div class="controls bui-form-group-select" data-type="type1">
+                <select class="input-small">
+                	<option>花王</option>
+                    <option>尤妮佳</option>
+                </select>&nbsp;&nbsp;
+    
+            </div>
+        </div>
+    </div>
+</div>
+<form class="form-horizontal" style="width:1500px">
+	<!--商品名称编号-->
+    <div class="row">
+        <div class="control-group span8">
+            <label class="control-label">商品名称：</label>
+            <div class="controls">
+                <input name="id"  data-tip='{"text":"商品名称","iconCls":"icon icon-user"}'  type="text" class="input-normal control-text">
+            </div>
+        </div>
+        <div class="control-group span8">
+            <label class="control-label">商品编号：</label>
+            <div class="controls">
+                <input name="id"  data-tip='{"text":"商品编号","iconCls":"icon icon-user"}'  type="text" class="input-normal control-text">
+            </div>
+        </div>
+    </div>
+    <!--名称编号结束-->
+    <div class="row">
+        <div class="control-group span18">
+            <label class="control-label">商品图片地址：</label>
+            <div class="controls">
+                <input name="id"  data-tip='{"text":"商品图片地址","iconCls":"icon icon-user"}'  type="text" class="input-normal control-text" style=" width:350px">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="control-group span24">
+            <label class="control-label">商品简介：</label>
+            <div class="controls control-row4">
+                <textarea name="" id="" class="span8 span-width"></textarea>
+            </div>
+        </div>
+	</div>
+
+    <div class="row">
+    	<!--商品是否展示二选一-->
+		<form id="J_Form" class="form-horizontal" method="post" action="#">
+              <div class="control-group">
+                  <label class="control-label">商品是否展示：</label>
+                  <div class="controls">
+                      <input type="radio" name="ismerge" value="是"> 是
+                      <input type="radio" name="ismerge" value="否" checked="checked" > 否
+                  </div>
+              </div>
+        </form>
+        <!--二选一结束-->
+    <div class="row" style="margin-left:-40px">
+        <div class="control-group  span10">
+            <label class="control-label" style="width:150px">销售价（可不填）：</label>
+            <div class="controls">
+                <input name="id"  data-tip='{"text":"商品销售价","iconCls":"icon icon-user"}'  type="text" class="input-normal control-text">
+            </div>
+        </div>
+        <div class="control-group span12">
+            <label class="control-label" style="width:150px">商品成本价（可不填）：</label>
+            <div class="controls">
+                <input name="id"  data-tip='{"text":"商品成本价","iconCls":"icon icon-user"}'  type="text" class="input-normal control-text">
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-left:-40px">
+        <div class="control-group span12">
+            <label class="control-label" style="margin-left:40px">货号：</label>
+            <div class="controls">
+                <input name="id"  data-tip='{"text":"货号","iconCls":"icon icon-user"}'  type="text" class="input-normal control-text" style="width:250px">
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-left:-40px">
+        <div class="control-group span12">
+            <label class="control-label" style="margin-left:40px">商品编码：</label>
+            <div class="controls">
+                <input name="id"  data-tip='{"text":"商品编码","iconCls":"icon icon-user"}'  type="text" class="input-normal control-text">
+            </div>
+        </div>
+        <div class="control-group span12">
+            <label class="control-label" style="margin-left:-40px">条形码：</label>
+            <div class="controls">
+                <input name="id"  data-tip='{"text":"条形码","iconCls":"icon icon-user"}'  type="text" class="input-normal control-text">
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-left:-40px">
+        <div class="control-group span12">
+            <label class="control-label" style="margin-left:40px">重量（克g）：</label>
+            <div class="controls">
+                <input name="id"  data-tip='{"text":"重量（克g）","iconCls":"icon icon-user"}'  type="text" class="input-normal control-text">
+            </div>
+        </div>
+        <div class="control-group span12">
+            <label class="control-label" style="margin-left:-40px">体积（立方米）：</label>
+            <div class="controls">
+                <input name="id"  data-tip='{"text":"体积（立方米）","iconCls":"icon icon-user"}'  type="text" class="input-normal control-text">
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-left:-40px">
+        <div class="control-group span12">
+            <label class="control-label" style="margin-left:40px">规格：</label>
+            <div class="controls">
+                <input name="id"  data-tip='{"text":"规格","iconCls":"icon icon-user"}'  type="text" class="input-normal control-text">
+            </div>
+        </div>
+    </div>
+</form>
+<div class="span13 offset3 ">
+              <button type="submit" class="button button-primary">保存</button>
+              <button type="reset" class="button">重置</button>
+</div>
+<script src="quote/js/jquery-1.8.1.min.js"></script> 
+<script src="quote/js/sea.js"></script> 
+<script src="quote/js/config.js"></script> 
+
+<!-- script start --> 
+<!--二选一-->
+<script type="text/javascript">
+      BUI.use(['bui/calendar','bui/form'],function(Calendar,Form){
+          var datepicker = new Calendar.DatePicker({
+            trigger:'.calendar',
+            autoRender : true
+          });
+ 
+        var form = $('form')[0],
+          tips = Form.Tips({
+            form : form
+          });
+        tips.render();
+      });
+	  
+	  <!--二选一-->
+	   BUI.use('bui/form',function  (Form) {
+        new Form.Form({
+          srcNode : '#J_Form'
+        }).render();
+      });
+    </script>
+<!--二选一结束--> 
+<!-- script end -->
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <title> 权限设置</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="../assets/css/dpl-min.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/css/bui-min.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/css/page-min.css" rel="stylesheet" type="text/css" />   <!-- 下面的样式，仅是为了显示代码，而不应该在项目中使用-->
+    <link href="../assets/css/dpl.css" rel="stylesheet" type="text/css" />
+ </head>
+
+<body>
+  <div class="demo-content" style="margin:20px">
+    <div class="row">
+      <div class="span23 ">
+        <div id="grid">
+          
+        </div>
+      </div>
+    </div>
+    
+ 
+  <script src="http://g.tbcdn.cn/fi/bui/jquery-1.8.1.min.js"></script>
+  <script src="http://g.alicdn.com/bui/seajs/2.3.0/sea.js"></script>
+  <script src="http://g.alicdn.com/bui/bui/1.1.21/config.js"></script>
+ 
+<!-- script start --> 
+    <script type="text/javascript">
+        BUI.use(['bui/grid','bui/data'],function(Grid,Data){
+            var Grid = Grid,
+          Store = Data.Store,
+          columns = [{
+              title : '序号',
+              dataIndex :'a',
+              width:50
+            },{
+              title : '角色名称',
+              dataIndex :'b',
+              width:150
+            },{
+              title : '角色权限',
+              dataIndex : 'c',
+              width:900
+          }],
+          data = [
+		  {a:'1',b:'全权限角色',c:'查看所有商品 | 查看分销商品 | 使用简单搜索 | 更新库存 | 更新运单号 | 导出EXCEL文件 | 增加商品、修改属性、删除商品 | 通过CSV文件添加商品 | 使用高级功能 | 商品品牌、分类、产地管理 查看当前用户资料 | 查看所有用户资料 | 修改当前用户资料 | 修改所有用户资料 | 修改用户角色权限 | 增加新用户 | 查看当前用户对账单 | 查看所有用户对账单 | 修改用户保证金 | 修改当前用户淘宝API | 修改当前用户微小店API | 支付宝在线充值 查看当前用户订单 | 查看所有用户订单 | 查看订单详细信息 | 使用搜索功能 | 未发货订单作废 | 使用订单高级统计功能 | 使用下单页面 | 使用批量下单功能 | 使用CSV上传订单 设置软件权限 | 设置跨境通APP_id | 查看跨境通APP_id | 设置接收短信电话 | 修改登陆密码 | 添加管理用户'},
+		  {a:'2',b:'分销用户',c:'查看所有商品 | 查看分销商品 | 使用简单搜索 | 导出EXCEL文件 | 查看当前用户资料 | 修改当前用户资料 | 查看当前用户对账单 | 支付宝在线充值 | 查看当前用户订单 | 查看订单详细信息 | 使用搜索功能 | 使用下单页面'},
+		
+		];
+ 
+        var store = new Store({
+            data : data,
+            autoLoad:true
+          }),
+          grid = new Grid.Grid({
+            render:'#grid',
+            forceFit: true,	// 列宽按百分比自适应
+            columns : columns,
+            store : store
+          });
+ 
+        grid.render();
+      });
+    </script>
+<!-- script end -->
+  </div>
+</body>
+</html>

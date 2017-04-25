@@ -1,0 +1,526 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<link href="quote/css/OMS.css" rel="stylesheet">
+<link href="quote/css/demo.css" rel="stylesheet">
+<link href="quote/css/dpl.css" rel="stylesheet">
+<link href="quote/css/bui.css" rel="stylesheet">
+<style>
+.wenzi{ font-weight:bold}
+</style>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+</head>
+
+<body style="margin-left:30px">
+<!--第一行-->
+<form id="J_Form" class="form-horizontal" method="post" action="add_order.php">
+    <div class="row">
+        <div class="control-group">
+        	<label class="control-label wenzi">采购单名称：</label>
+        	<div class="controls">
+        		<input type="text" name="ordername" class="control-text" data-rules="{required:true}">
+        	</div>
+        	<label class="control-label wenzi">采购单编号：</label>
+        	<div class="controls">
+        		<input type="text" readOnly="true" class="control-text" class="control-text" name="ordernumber" id="orderNumber">
+        	</div>
+     	</div>
+	</div>
+    <div class="row">
+    	<div class="control-group" style="float:left">
+            <label class="control-label wenzi">供应商：</label>
+            <div class="controls">
+                <select id="supplier" name="supplier" data-rules="{required:true}" data-messages="{required:'请选择供应商'}">
+                    <option>请选择</option>
+                </select>
+            </div>
+		</div>
+        <div class="control-group span8">
+            <label class="control-label wenzi">到货仓库：</label>
+            <div class="controls">
+                <select name="warehouse" id="warehouse" data-rules="{required:true}" data-messages="{required:'请选择到货仓库'}">
+                    <option>请选择仓库</option>
+                </select>
+            </div>
+        </div>
+	</div>
+    <div class="row">
+    	<div class="control-group" style="float:left">
+            <label class="control-label wenzi">采购方式：</label>
+            <div class="controls">
+                <select name="way" data-rules="{required:true}" data-messages="{required:'请选择采购方式'}">
+                    <option>请选择</option>
+                    <option>请选择</option>
+                    <option>请选择</option>
+                </select>
+            </div>
+		</div>
+        <div class="control-group span8">
+            <label class="control-label wenzi">采购日期：</label>
+            <div class="controls">
+        		<input type="text" name="purchaseDate" class="calendar" style="width:140px" data-rules="{date:true}" />
+        	</div>
+        </div>
+	</div>
+    <div class="row">
+        <div class="control-group" style="float:left">
+        	<label class="control-label wenzi">预计到货天数：</label>
+        	<div class="controls">
+        		<input type="text" name="scheduleDay" class="control-text" data-rules="{number:true}"/>
+        	</div>
+     	</div>
+        <div class="control-group span8">
+        	<label class="control-label wenzi">运费：(元)</label>
+        	<div class="controls">
+                      <input type="text" name="freight" class="control-text" data-rules="{number:true}" />
+            </div>
+        </div>
+    </div>
+	<div class="row">
+        <div class="control-group" style="float:left;">
+        	<label class="control-label wenzi">预计费用：(元)</label>
+        	<div class="controls">
+        		<input type="text" name="allcost" class="control-text" data-rules="{number:true}" />
+        	</div>
+     	</div>
+     </div>
+    <hr>
+    <div class="row">
+        <div class="control-group">
+        	<label class="control-label wenzi">采购人姓名：</label>
+            <div class="controls">
+                <input type="text" readOnly="true" value="张三" class="control-text" name="orderperson" id="orderperson">
+            </div>
+        	<label class="control-label wenzi" style="margin-left:60px">是否入库：</label>
+            <div class="controls">
+                <input type="text" readOnly="true" value="1" class="control-text" name="schedule" id="schedule">
+            </div>
+     	</div>
+	</div>
+    <hr>
+    <div class="row">
+        <h3>添加订单商品</h3>
+        <hr/>
+        <ul class="toolbar">
+            <li><button id="J_BtnSelect" type="button" class="button button-info"><i class="icon icon-white icon-envelope"></i> 添加商品</button></li>
+        </ul>
+        <div id="grid"></div>
+    </div>
+    <div class="row" style="margin-top:10px">
+        <div class="form-actions offset3">
+        	<button type="submit" class="button button-primary">下单</button>
+        	<button type="reset" class="button">重置</button>
+            <button onclick="quzhi()">取值</button>
+        </div>
+    </div> 
+</form>
+
+<div id="J_Content" class="hide">
+    <div id="J_ContentGrid"></div>
+</div>
+<!--js--> 
+<script src="quote/js/jquery-1.8.1.min.js"></script> 
+<script src="quote/js/sea.js"></script> 
+<script src="quote/js/config.js"></script> 
+<script src="quote/js/grid-min.js"></script> 
+<script src="quote/js/common-min.js"></script> 
+<script src="quote/js/menu-min.js"></script> 
+<script src="quote/js/data-min.js"></script> 
+<script src="quote/js/toolbar-min.js"></script> 
+<script src="quote/js/mask-min.js"></script> 
+<script src="quote/js/list-min.js"></script> 
+<script src="quote/js/form-min.js"></script> 
+<script src="quote/js/overlay-min.js"></script>
+<script src="quote/js/editor-min.js"></script> 
+<script src="quote/img/calendar-min.js"></script>
+<script src="quote/js/slider-min.js"></script>
+
+
+<script type="text/javascript">
+    function quzhi(){
+        $(document).ready(function(){
+            var tt =  $("tr:eq(3)>td:eq(2)").text();
+            alert(tt);
+        });
+    }
+
+        //获取表格的值
+
+
+	<!--日期-->
+      BUI.use('bui/calendar',function(Calendar){
+          var datepicker = new Calendar.DatePicker({
+            trigger:'.calendar',
+            autoRender : true
+          });
+        });
+<!--二选一-->
+
+    BUI.use(['bui/form','bui/grid','bui/data','bui/overlay','bui/tooltip'],function (Form,Grid,Data,Overlay,Tooltip) {
+        var form = new Form.HForm({
+            srcNode : '#J_Form',
+            submitType : 'ajax',
+            callback : function(data){
+                if(data.msg == 1){
+                    BUI.Message.Alert('创建采购单成功',function() {
+                        window.location.href = "place an order.html"
+                    },'success');
+
+                }else{
+                    BUI.Message.Alert('创建采购单失败','error');
+                }
+            }
+        }).render();
+        $('#btnAdd').on('click',function(){
+            $('<input type="hidden" name="h1" value="h1">').appendTo('#J_Form');
+        });
+ /*       //点击字段时清除错误
+        var validField = form.getField('validCode');
+        validField.get('el').on('focus',function(){
+            validField.clearErrors();
+        });
+*/
+        //生成输入框或者直接显示记录
+        function getRender(name,rules,event){
+            return  function defRender(value,obj){
+                if(!obj){
+                    return;
+                }
+                if(obj.operation){
+                    return '<input type="text" name="' + name + '" data-rules="' + rules + '" id="'+ name +'" '+ event +'>'
+                }
+                return value;
+            };
+        }
+
+
+        var  Store = Data.Store,
+                columns = [
+                    {title : '商品名称',dataIndex :'goodname',width : 200,renderer : getRender('goodname',"{required : true}","readOnly='true'")}, //editor中的定义等用于 BUI.Form.Field.Text的定义
+                    {title : '商品编号', dataIndex :'goodid',width : 200,renderer : getRender('goodid',"{required : true}","onblur='searchgood()'")},
+                    {title : '商品成本',dataIndex :'cost',width : 200,renderer : getRender('cost',"{required : true}","readOnly='true'")},
+                    {title:'个数',dataIndex:'number',width : 200,renderer : function(value,obj){
+                        value = value || '';
+                        if(obj.operation){ //如果是操作行
+                            return '<input type="text" name="number" data-rules="{required : true}">';
+                        }
+                        return '<input type="text" name="amount_'+obj.id+'"  data-rules="{required : true}" value="' + value + '"/>'
+                    }},
+                    {title : '操作',width : 100,dataIndex:'e',renderer : function(value,obj){
+
+                        if(obj.operation){//如果是操作行
+                            return '<a href="#" class="grid-command btn-add"><i class="icon icon-ok"></i> 确认添加</a>'
+                        }
+                        return '<a  href="#" class="grid-command btn-del"><i class="icon icon-trash"></i> 删除</a>'
+                    }}
+                ],
+                data = [];
+
+        var store = new Store({
+                    data : data,
+                    autoLoad:true
+                }),
+                grid = new Grid.SimpleGrid({ //使用简单表格
+                    render:'#grid',
+                    columns : columns,
+                    tableCls:'table table-bordered',  //定义表格样式
+                    width : '100%',
+                    store : store
+                });
+
+
+        var addPersonGroup, //用于添加记录的输入
+                errorTpl='<span class="x-icon x-icon-small x-icon-error" data-title="{error}">!</span>';
+
+        grid.on('itemrendered',function(ev){
+            var item = ev.item,
+                    itemEl = $(ev.element);
+            //如果是添加记录的行
+            if(item.operation){
+                addPersonGroup = new Form.Group({ //创建表单分组，此分组不在表单form对象中，所以不影响校验
+                    srcNode : itemEl,
+                    elCls:'',
+                    errorTpl : errorTpl,
+                    showError : false,
+                    defaultChildCfg : {
+                        elCls : ''
+                    }
+                });
+                addPersonGroup.render();
+            }else{ //如果是普通的行
+                var input = itemEl.find('input');
+                form.addChild({
+                    xclass : 'form-field',
+                    errorTpl : errorTpl,
+                    srcNode : input
+                });
+            }
+        });
+
+
+        grid.render();
+
+        //添加最后一条记录，用于输入记录
+        store.add({operation : true});
+
+        //序列化添加的记录
+        function serializeAdd(){
+            return addPersonGroup.get('record');
+        }
+
+        //验证添加的记录
+        function validAdd(){
+            addPersonGroup.valid();
+            return addPersonGroup.isValid();
+        }
+
+        //清除添加
+        function clearAdd(){
+            addPersonGroup.set('record',{}); //设置记录时会触发校验
+            addPersonGroup.clearErrors(); //清除错误信息
+        }
+
+        //清除点击链接的默认事件
+        grid.get('el').delegate('.grid-command','click',function(ev){
+            ev.preventDefault();
+        });
+
+
+        //点击操作
+        grid.on('itemclick',function(ev){
+            var sender = $(ev.domTarget),
+                    itemEl = $(ev.element),
+                    item = ev.item;
+
+            if(sender.hasClass('btn-del')){ //点击删除操作
+                delFunction(item,itemEl);
+
+            }else if(sender.hasClass('btn-add')){ //点击编辑操作
+                addFunction(item,itemEl);
+            }
+
+        });
+
+
+
+        //添加记录
+        function addFunction(item,itemEl){
+            var index = store.findIndexBy(item);
+            if(validAdd()){
+                var record = serializeAdd(); //获取添加的信息
+
+                submitPerson(record,function(data){ //发送异步请求，返回添加的记录编号
+                    record.id = data.id;
+                    store.addAt(record,index);
+                    clearAdd();
+                });
+            }
+        }
+
+        //删除选中的记录
+        function delFunction(item,itemEl){
+            BUI.Message.Confirm('确认删除记录？',function(){
+                var input = itemEl.find('input'),
+                        name = itemEl.attr('name');
+                if(name){
+                    form.getField(name).remove();
+                }
+
+                store.remove(item);
+            },'question');
+        }
+
+        //提交员工
+        function submitPerson(person,callback){
+            var goodid = person.goodid;
+            $.ajax({
+                type: "GET",
+                url: "findgood.php",
+                data: {goodid:goodid},
+                dataType: "json",
+                success: function(data){
+                    if(data.msg == 1){
+                        callback({id : data.id});
+                    }
+                }
+            });
+            //此处编写异步请求
+            //自己完成
+            //异步请求的回调函数里调用传入的回调函数
+        }
+
+
+        /** 批量导入 **/
+        var selColumns = [
+            {title : '商品名称',dataIndex :'goodname', width:100},
+            {title : '商品编号',dataIndex :'goodid', width:100},
+            {title : '商品成本',dataIndex :'cost', width:100}
+        ];
+
+        var selStore = new Store({
+                    url : 'good.json',
+                    pageSize:20 // 配置分页数目
+                }),
+                selGrid = new Grid.Grid({
+                    render:'#J_ContentGrid',
+                    columns : selColumns,
+                    width:650,
+                    height:350,
+                    loadMask: true,
+                    store: selStore,
+                    plugins : [Grid.Plugins.CheckSelection],
+                    // 底部工具栏
+                    bbar:{
+                        // pagingBar:表明包含分页栏
+                        pagingBar:true
+                    }
+                });
+
+        selGrid.render();
+
+
+        //添加选中的人员
+        function addPersons(){
+            var persons = selGrid.getSelection();
+            BUI.each(persons,function(person){
+                var count = store.getCount();
+                //添加记录到倒数第二个，同时防止添加重复的记录
+                store.addAt(person,count - 1,true,function(obj1,obj2){
+                    return obj1.id == obj2.id;
+                });
+            });
+
+        }
+
+        //创建弹出框，延迟创建
+        function createDialog(){
+            return new Overlay.Dialog({
+                title:'选择联系人',
+                //配置DOM容器的编号
+                height:520,
+                contentId:'J_Content',
+                success:function () {
+                    addPersons();
+                    this.close();
+                }
+            });
+        }
+        var dialog;
+
+        $('#J_BtnSelect').on('click',function () {
+            if(!dialog){
+                dialog = createDialog();
+            }
+            dialog.show();
+            selStore.load({start : 0});
+        });
+
+/*        //暂存信息
+        $('#J_BtnSave').on('click',function(){
+            var info = form.serializeToObject();
+            //异步保存
+            //自己实现
+        });*/
+
+
+        //不使用模板的，左侧显示
+        var tips = new Tooltip.Tips({
+            tip : {
+                trigger : '.x-icon-error', //出现此样式的元素显示tip
+                alignType : 'top', //默认方向
+                elCls : 'tips tips-warning tips-no-icon tip1',
+                offset : 10 //距离左边的距离
+            }
+        });
+        tips.render();
+    });
+    //生成订单编号
+    orderNumber();
+    function orderNumber(){
+        var myDate = new Date();
+        Date.prototype.format = function(format){
+            var o = {
+                "M+" : this.getMonth()+1, //month
+                "d+" : this.getDate(), //day
+                "h+" : this.getHours(), //hour
+                "m+" : this.getMinutes(), //minute
+                "s+" : this.getSeconds(), //second
+                "q+" : Math.floor((this.getMonth()+3)/3), //quarter
+                "S" : this.getMilliseconds() //millisecond
+            }
+
+            if(/(y+)/i.test(format)) {
+                format = format.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
+            }
+
+            for(var k in o) {
+                if(new RegExp("("+ k +")").test(format)) {
+                    format = format.replace(RegExp.$1, RegExp.$1.length==1 ? o[k] : ("00"+ o[k]).substr((""+ o[k]).length));
+                }
+            }
+            return format;
+        }
+        var time = new Date().format("yyyyMMdd");
+        var s = 3600 * (myDate.getHours()) + 60 * (myDate.getMinutes()) + (myDate.getSeconds())
+        var orderNumber = "CG" + time + s;
+        document.getElementById('orderNumber').value = orderNumber;
+    }
+
+    var select1 = document.getElementById("warehouse");
+    select1.options.length = 0;
+    $.ajax({
+        type: "GET",
+        url: "showwarehouseall.php",
+        dataType: "json",
+        success: function(data){
+            select1.options.add(new Option("请选择仓库", ""));
+            for(var i=0;i<data.length;i++){
+                var e = i+1;
+                select1.options.add(new Option(data[i].warehouseName,data[i].warehouseName));
+            }
+        }
+    });
+
+    var select2 = document.getElementById("supplier");
+    select2.options.length = 0;
+    $.ajax({
+        type: "GET",
+        url: "showsupplierall.php",
+        dataType: "json",
+        success: function(data){
+            select2.options.add(new Option("请选择供应商", ""));
+            for(var i=0;i<data.length;i++){
+                var e = i+1;
+                select2.options.add(new Option(data[i].suppliername,data[i].suppliername));
+            }
+        }
+    });
+
+
+    //查询商品信息
+    function searchgood(){
+        var goodid = document.getElementById('goodid').value;
+        if(goodid == ""){
+
+        }else {
+            $.ajax({
+                type: "GET",
+                url: "findgood.php",
+                data: {goodid: goodid},
+                dataType: "json",
+                success: function (data) {
+                    if(data.msg == 1){
+                        document.getElementById('goodname').value = data.goodname;
+                        document.getElementById('cost').value = data.cost;
+                    }else{
+
+                    }
+                }
+            });
+        }
+    }
+
+</script>
+</body>
+</html>
